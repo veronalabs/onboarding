@@ -1,0 +1,10 @@
+.c-section--header {
+  padding: 17px 0;
+  background-color: $white-color;
+  margin-bottom: 80px;
+  .o-section__wrapper {
+    @include mq(lg) {
+      max-width: calc(1332px - 2em);
+    }
+  }
+}

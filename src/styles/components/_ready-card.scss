@@ -1,0 +1,44 @@
+.c-readycard {
+  width: calc(100% / 3 - 10px);
+  border-radius: 4px;
+  border: 1px solid $grey-color-3;
+  padding: 20px 24px 16px 24px;
+  box-sizing: border-box;
+  position: relative;
+  svg {
+    margin-bottom: 16px;
+  }
+  .c-btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 4px;
+  }
+}
+.c-readycard__title {
+  color: $black-color;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0 0 10px 0;
+}
+.c-readycard__desc {
+  margin: 0 0 17px 0;
+  line-height: 155%;
+  min-height: 37px;
+}
+.c-readycard__badge {
+  position: absolute;
+  border-radius: 4px 0px 0px 4px;
+  background: $black-color;
+  color: $white-color;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 700;
+  padding: 3px 4px 4px 4px;
+  position: absolute;
+  top: 23px;
+  right: 0;
+}
+.c-readycard--integration {
+  background-color: $grey-color-4;
+}

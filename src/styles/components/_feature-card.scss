@@ -1,0 +1,20 @@
+.c-feature-card {
+  border-radius: 4px;
+  border: 1px solid $grey-color-3;
+  width: calc(100% / 2 - 8px);
+  box-sizing: border-box;
+  padding: 16px;
+  gap: 10px;
+  svg {
+    flex-shrink: 0;
+  }
+}
+.c-feature-card__title {
+  color: $black-color;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0 0 9px 0;
+}
+

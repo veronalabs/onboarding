@@ -1,0 +1,61 @@
+.c-table {
+  border-radius: 4px;
+  border: 1px solid $grey-color-3 !important;
+  margin-bottom: 1rem !important;
+  thead {
+    background: $grey-color-4;
+    border: 0;
+    th {
+      border: 0 !important;
+      color: $black-color;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px; /* 200% */
+    }
+  }
+  td {
+    line-height: 12px;
+  }
+}
+.c-table__wrapper {
+  #DataTables_Table_0_paginate {
+    float: none;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 4px;
+    border: 1px solid var(--Border, #e7e7e7);
+    padding: 6px 10px 7px 10px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: transparent !important;
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: $primary-orange;
+  }
+}
+.c-table__availability {
+  border-radius: 2px;
+  background-color: $grey-color-4;
+  color: $black-color;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  padding: 3px 8px 4px 8px;
+  min-width: 82px;
+  text-align: center;
+  &.c-table__availability--sucsess {
+    color: $green;
+    background-color: $green-light;
+  }
+}
+.c-btn-table {
+  font-size: 12px;
+  width: 80px;
+  padding: 4px;
+}

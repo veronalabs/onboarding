@@ -1,0 +1,28 @@
+.c-ready__title {
+  color: $black-color;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-right: 16px;
+  background-color: $white-color;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+  white-space: nowrap;
+
+  &:after {
+    content: "";
+    display: block;
+    top: calc(50% - 1px);
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $grey-color-3;
+  }
+}
+.c-ready__items {
+  flex-wrap: wrap;
+  gap: 13px;
+}

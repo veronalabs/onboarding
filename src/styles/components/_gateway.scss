@@ -1,0 +1,15 @@
+.c-getway__offer {
+  border-radius: 4px;
+  background: $grey-color-4;
+  text-align: center;
+  padding: 18px;
+  p {
+    text-align: center;
+    color: $black-color;
+    margin: 0;
+
+    a {
+      color: $primary-orange;
+    }
+  }
+}

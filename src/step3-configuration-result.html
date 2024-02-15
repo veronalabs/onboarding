@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="EN">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXX-X"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-XXXXXX-X");
+    </script>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step 3</title>
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- Web Application Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Veronalabs" />
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Veronalabs" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="apple-touch-icon.png?v=1.0.0"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon-32x32.png?v=1.0.0"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon-16x16.png?v=1.0.0"
+    />
+    <link rel="manifest" href="site.webmanifest?v=1.0.0" />
+    <link
+      rel="mask-icon"
+      href="safari-pinned-tab.svg?v=1.0.0"
+      color="#3c3ce5"
+    />
+    <link rel="shortcut icon" href="favicon.ico?v=1.0.0" />
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="mstile-150x150.png" />
+    <meta name="msapplication-TileColor" content="#3c3ce5" />
+
+    <!-- Color the status bar on mobile devices -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- build:css styles/vendor.min.css -->
+    <!-- endbuild -->
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- endfonts -->
+
+    <!-- build:css styles/main.min.css -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <!-- endbuild -->
+    <!-- select2 -->
+    <link rel="stylesheet" href="styles/select2.min.css" />
+  </head>
+
+  <body>
+    <div id="main" role="content">
+      <header class="o-section c-section--header">
+        <div class="o-section__wrapper">
+          <div class="c-header">
+            <nav class="c-header_navigation">
+              <ul class="s-nav s-nav--steps">
+                <li class="is-active">
+                  <span><img src="./img/tick.svg" alt="" /></span
+                  ><a href="#">Start</a>
+                </li>
+                <li class="is-active">
+                  <span><img src="./img/tick.svg" alt="" /></span
+                  ><a href="#">SMS gateway</a>
+                </li>
+                <li class="is-active">
+                  <span>3</span><a href="#">Configuration</a>
+                </li>
+                <li><span>4</span><a href="#">Industry</a></li>
+                <li><span>5</span><a href="#">WP-SMS Pro</a></li>
+                <li><span>6</span><a href="#">Add-ons</a></li>
+                <li><span>7</span><a href="#">Ready</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <section class="c-section--logo u-text-center u-mb-20">
+        <img src="./img/logo.svg" alt="logo" />
+      </section>
+      <section class="o-section c-section--maincontent">
+        <div class="o-section__wrapper o-section__wrapper--maincontent">
+          <div class="u-mb-40">
+            <h1 class="u-text-center u-m-0">SMS gateway configuration</h1>
+            <p class="u-text-center u-m-0">
+              An optional short description goes here.
+            </p>
+          </div>
+          <div
+            class="c-form c-form--medium u-flex u-content-center u-align-center u-flex--column"
+          >
+            <form action="">
+              <div class="c-form__fieldgroup u-mb-16">
+                <label for="">API username</label>
+                <input type="text" placeholder="" />
+              </div>
+              <div class="c-form__fieldgroup u-mb-16">
+                <label for="">API password</label>
+                <input type="password" placeholder="" />
+              </div>
+              <div class="c-form__fieldgroup u-mb-20">
+                <label for="">Sender number</label>
+                <input type="tel" placeholder="" />
+              </div>
+              <ul class="c-form__result">
+                <li
+                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
+                >
+                  <span class="c-form__result-title">Status:</span>
+                  <span class="c-form__result-status">Deactive!</span>
+                </li>
+                <li
+                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
+                >
+                  <span class="c-form__result-title">Balance:</span>
+                  <span class="c-form__result-status"
+                    >Username & password failed!</span
+                  >
+                </li>
+                <li
+                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
+                >
+                  <span class="c-form__result-title">Incoming message:</span>
+                  <span class="c-form__result-status">Does not support!</span>
+                </li>
+                <li
+                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
+                >
+                  <span class="c-form__result-title">Bulk SMS:</span>
+                  <span
+                    class="c-form__result-status c-form__result-status--sucsess"
+                    >Supported!</span
+                  >
+                </li>
+                <li
+                  class="c-form__result-item u-flex u-content-sp u-align-center"
+                >
+                  <span class="c-form__result-title">Send MMS:</span>
+                  <span class="c-form__result-status">Does not support!</span>
+                </li>
+              </ul>
+              <div
+                class="c-form__fieldgroup u-text-center u-pt-30 u-flex u-content-center u-align-center u-gap-13"
+              >
+                <input class="c-btn c-btn--light" type="submit" value="Back" />
+                <input
+                  class="c-btn c-btn--primary"
+                  type="submit"
+                  value="Continue"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section class="c-section--nextstep u-text-center u-mb-100">
+        <a href="#" class="c-link" title="">Skip this step</a>
+      </section>
+    </div>
+    <!-- build:js scripts/vendor.min.js -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/main.min.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- select2 -->
+    <script src="scripts/select2.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("select").select2();
+      });
+    </script>
+  </body>
+</html>

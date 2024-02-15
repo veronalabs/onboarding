@@ -1,0 +1,8 @@
+.c-link {
+  text-decoration: none;
+  transition: all 200ms ease-in-out;
+  color: inherit;
+  &:hover {
+    color: $primary-orange;
+  }
+}
