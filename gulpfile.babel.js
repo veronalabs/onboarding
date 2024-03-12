@@ -110,9 +110,8 @@ exports.styles = styles;
 function scripts() {
   return (
     src([
-      // Note: Since we are not using useref in the scripts build pipeline,
-      //       you need to explicitly list your scripts here in the right order
-      //       to be correctly concatenated
+      "./node_modules/select2/dist/js/select2.min.js",
+      "./node_modules/datatables/media/js/jquery.dataTables.js",
       "./src/scripts/main.js",
       // Other scripts
     ])
@@ -182,35 +181,6 @@ function clean(cb) {
 
 exports.clean = clean;
 
-// Watch files for changes & reload
-
-// const serve = series(parallel(styles, scripts), function () {
-//   browserSync.init({
-//     notify: false,
-//     // Customize the Browsersync console logging prefix
-//     logPrefix: 'WSK',
-//     // Allow scroll syncing across breakpoints
-//     scrollElementMapping: ['main', '.mdl-layout'],
-//     // Run as an https by uncommenting 'https: true'
-//     // Note: this uses an unsigned certificate which on first access
-//     //       will present a certificate warning in the browser.
-//     // https: true,
-
-//     server: {
-//       baseDir: ['.tmp', 'src'],
-//       routes: {
-//         '/node_modules': 'node_modules'
-//       }
-//     },
-//     port: 3000
-//   });
-
-//   watch('src/**/*.html').on('change', reload);
-//   watch('src/styles/**/*.{scss,css}', styles).on('change', reload);
-//   watch('src/scripts/**/*.js', parallel(lint, scripts)).on('change', reload);
-//   watch('src/images/**/*').on('change', reload);
-// });
-
 function start() {
   browserSync.init({
     notify: false,
@@ -218,18 +188,13 @@ function start() {
     logPrefix: "WSK",
     // Allow scroll syncing across breakpoints
     scrollElementMapping: ["main", ".mdl-layout"],
-    // Run as an https by uncommenting 'https: true'
-    // Note: this uses an unsigned certificate which on first access
-    //       will present a certificate warning in the browser.
-    // https: true,
-
     server: {
       baseDir: [".tmp", "src"],
       routes: {
         "/node_modules": "node_modules",
       },
     },
-    port: 3000,
+    port: 3020,
   });
 
   watch("src/**/*.html").on("change", reload);
@@ -248,12 +213,8 @@ function servedist() {
     logPrefix: "WSK",
     // Allow scroll syncing across breakpoints
     scrollElementMapping: ["main"],
-    // Run as an https by uncommenting 'https: true'
-    // Note: this uses an unsigned certificate which on first access
-    //       will present a certificate warning in the browser.
-    // https: true,
-    server: "dist",
-    port: 3001,
+     server: "dist",
+    port: 3003,
   });
 }
 
@@ -319,17 +280,3 @@ function getReleaseCommands() {
 }
 
 exports.getReleaseCommands = getReleaseCommands;
-
-// Create release directory into .tmp for generating release zip
-// gulp.task('cp-release', run(getReleaseCommands()));
-
-// // Build release zip
-// gulp.task('release', ['clean'], cb => {
-//   runSequence(
-//     'styles',
-//     ['lint', 'html', 'scripts', 'cp-placeholders', 'copy', 'fonts'],
-//     'cp-release',
-//     'zip-release',
-//     cb
-//   );
-// });

@@ -19,10 +19,11 @@
   }
 }
 .s-nav--steps {
+  max-width: 100%;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
   &:after {
     content: "";
     display: block;
@@ -63,9 +64,13 @@
       font-weight: 400;
       line-height: normal;
       text-transform: capitalize;
-      display: flex;
       align-items: center;
       justify-content: center;
+      white-space: nowrap;
+      display: none;
+      @media (min-width: 768px) {
+        display: flex;
+      }
       &:hover {
         color: $black-color;
       }
@@ -78,6 +83,20 @@
       a {
         color: $black-color;
       }
+      &.last-active {
+        a{
+          display: flex;
+          position: absolute;
+          top: calc(100% + 30px);
+          left: 0;
+          z-index: 99;
+          @include mq(lg) {
+            position: relative;
+            top: 0;
+          }
+        }
+      }
     }
+
   }
 }
