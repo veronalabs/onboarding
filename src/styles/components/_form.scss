@@ -91,6 +91,17 @@
   padding: 24px;
   box-sizing: border-box;
 }
+.c-form__result-item.u-content-sp{
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  @include mq(tablet) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+   }
+}
+
 .c-form__result-title {
   color: #3d4349;
 }
@@ -104,7 +115,7 @@
 .c-form--industry {
   form {
     width: 262px;
-    max-width: 262px;
+    max-width: 100%;
   }
   .c-form__fieldgroup--checkbox {
     border-radius: 4px;

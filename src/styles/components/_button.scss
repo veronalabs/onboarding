@@ -8,7 +8,7 @@
   font-weight: 400;
   line-height: 24px;
   padding: 6px;
-  min-width: 125px;
+  min-width: 108px;
   text-align: center;
   outline: 0;
   border-radius: 4px;
@@ -19,6 +19,9 @@
   }
   &:active {
     outline: 0;
+  }
+  @include mq(tablet) {
+    min-width: 125px;
   }
 }
 .c-btn--primary {

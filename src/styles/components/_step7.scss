@@ -25,4 +25,8 @@
 .c-ready__items {
   flex-wrap: wrap;
   gap: 13px;
+  flex-direction: column;
+  @include mq(tablet) {
+    flex-direction: row;
+  }
 }
