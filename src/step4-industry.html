@@ -25,9 +25,6 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no" />
 
-    <!-- Web Application Manifest -->
-    <link rel="manifest" href="manifest.json" />
-
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="Veronalabs" />
@@ -47,22 +44,9 @@
       sizes="32x32"
       href="favicon-32x32.png?v=1.0.0"
     />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="favicon-16x16.png?v=1.0.0"
-    />
     <link rel="manifest" href="site.webmanifest?v=1.0.0" />
-    <link
-      rel="mask-icon"
-      href="safari-pinned-tab.svg?v=1.0.0"
-      color="#3c3ce5"
-    />
-    <link rel="shortcut icon" href="favicon.ico?v=1.0.0" />
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="mstile-150x150.png" />
+    <!-- Tile color for Win8  -->
     <meta name="msapplication-TileColor" content="#3c3ce5" />
 
     <!-- Color the status bar on mobile devices -->
@@ -92,21 +76,21 @@
             <nav class="c-header_navigation">
               <ul class="s-nav s-nav--steps">
                 <li class="is-active">
-                  <span><img src="./img/tick.svg" alt="" /></span
-                  ><a href="#">Start</a>
+                  <span><img src="./img/tick.svg" alt="checked" /></span
+                  ><a href="/" title="start">Start</a>
                 </li>
                 <li class="is-active">
-                  <span><img src="./img/tick.svg" alt="" /></span
-                  ><a href="#">SMS gateway</a>
+                  <span><img src="./img/tick.svg" alt="checked" /></span
+                  ><a href="/step2-sms-gateway.html" title="SMS gateway">SMS gateway</a>
                 </li>
                 <li class="is-active">
-                  <span><img src="./img/tick.svg" alt="" /></span
-                  ><a href="#">Configuration</a>
+                  <span><img src="./img/tick.svg" alt="checked" /></span
+                  ><a href="/step3-configuration-result.html" title="Configuration">Configuration</a>
                 </li>
-                <li class="is-active"><span>4</span><a href="#">Industry</a></li>
-                <li><span>5</span><a href="#">WP-SMS Pro</a></li>
-                <li><span>6</span><a href="#">Add-ons</a></li>
-                <li><span>7</span><a href="#">Ready</a></li>
+                <li class="is-active"><span>4</span><a href="/step4-industry.html" title="Industry">Industry</a></li>
+                <li><span>5</span><a href="/step5-wp-sms-pro.html" title="WP-SMS Pro">WP-SMS Pro</a></li>
+                <li><span>6</span><a href="/step6-addons.html" title="Add-ons">Add-ons</a></li>
+                <li><span>7</span><a href="/step7-ready.html" title="Ready">Ready</a></li>
               </ul>
             </nav>
           </div>
@@ -126,7 +110,7 @@
           <div
             class="c-form c-form--industry u-flex u-content-center u-align-center u-flex--column"
           >
-            <form action="">
+            <form action="/step5-wp-sms-pro.html">
               <div
                 class="c-form__fieldgroup c-form__fieldgroup--checkbox u-mb-16"
               >
@@ -195,8 +179,8 @@
           </div>
         </div>
       </section>
-      <section class="c-section--nextstep u-text-center u-mb-100">
-        <a href="#" class="c-link" title="">Skip this step</a>
+      <section class="c-section--nextstep u-text-center">
+        <a href="#" class="c-link" title="Skip this step">Skip this step</a>
       </section>
     </div>
 

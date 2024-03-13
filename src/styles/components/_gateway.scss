@@ -3,6 +3,7 @@
   background: $grey-color-4;
   text-align: center;
   padding: 18px;
+
   p {
     text-align: center;
     color: $black-color;
@@ -10,6 +11,10 @@
 
     a {
       color: $primary-orange;
+      display: inline-block;
+      @include mq(lg) {
+        display: inline;
+      }
     }
   }
 }

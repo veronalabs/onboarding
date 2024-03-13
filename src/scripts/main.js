@@ -7,8 +7,8 @@
     $(".js-table").DataTable({
       searching: false,
       info: false,
-      dom: "rtip",
       responsive: true,
+      dom: "rtip",
       language: {
         paginate: {
           previous:

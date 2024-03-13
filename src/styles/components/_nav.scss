@@ -87,11 +87,14 @@
         a{
           display: flex;
           position: absolute;
-          top: calc(100% + 30px);
-          left: 0;
+          color: #5b5b5b;
+          top: calc(100% + 3px);
           z-index: 99;
+          font-size: 10px;
           @include mq(lg) {
+            color: #000;
             position: relative;
+            font-size: 12px;
             top: 0;
           }
         }

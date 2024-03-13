@@ -1,3 +1,6 @@
 .c-section--nextstep{
   margin-bottom: 2rem;
+  @include mq(tablet) {
+    margin-bottom: 3rem;
+  }
 }
