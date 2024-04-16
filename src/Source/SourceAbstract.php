@@ -12,7 +12,7 @@ abstract class SourceAbstract
     protected $allowed = [];
     
     public abstract function validation($key);
-    
+
     public function reset()
     {
         $this->data = [];
@@ -23,6 +23,7 @@ abstract class SourceAbstract
     {
         return $this->data;
     }
+    
     public function __get($key)
     {
         if(!property_exists($this, $key))

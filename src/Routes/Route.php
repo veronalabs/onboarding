@@ -19,8 +19,9 @@ class Route extends SourceAbstract
 
     public function validation($key)
     {
-        if(array_key_exists($key, $this->allowed)) return true;
-        return false;
+        // if(array_key_exists($key, $this->allowed)) return true;
+        // return false;
+        return true;
     }
 
 }

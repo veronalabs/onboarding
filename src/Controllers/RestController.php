@@ -2,23 +2,24 @@
 
 namespace Veronalabs\Onboarding\Controllers;
 
-class RestController
-{
+use Veronalabs\Onboarding\Contracts\ResourceContract;
 
-    public function stepHandler($step, $args)
+class RestController extends ControllerAbstract
+{
+    
+    private ResourceContract $resource;
+    
+    public function __construct(ResourceContract $resource)
     {
-        return "blah blah";
+        $this->resource = $resource;
     }
 
-    public function __call($method, $args)
+    public function stepHandler($step, $request, $fields)
     {
 
-        if( ! method_exists($this, $method) && strpos($method, "handle_step_") == 0)
-        {   
-            $stepName = substr($method, 12);
-            return $this->stepHandler($stepName, $args);
-        }
-
+        $this->validation($fields, $request->get_params());        
+        $this->resource->load();
+        
     }
 
 
