@@ -17,6 +17,5 @@
         },
       },
     });
-    $('.s-nav--steps li.is-active:last').addClass('last-active');
   });
 })();

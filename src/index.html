@@ -70,51 +70,56 @@
 
 <body>
 <div id="main" role="content">
+
+  <section class="c-section--logo u-text-center">
+    <img src="./img/logo.svg" alt="logo"/>
+  </section>
   <header class="o-section c-section--header">
     <div class="o-section__wrapper">
       <div class="c-header">
         <nav class="c-header_navigation">
           <ul class="s-nav s-nav--steps">
-            <li class="is-active"><span>1</span><a href="/" title="start">Start</a></li>
-            <li><span>2</span><a href="/step2-sms-gateway.html" title="SMS gateway">SMS gateway</a></li>
-            <li><span>3</span><a href="/step3-configuration-result.html" title="Configuration">Configuration</a></li>
-            <li><span>4</span><a href="/step4-industry.html" title="Industry">Industry</a></li>
-            <li><span>5</span><a href="/step5-wp-sms-pro.html" title="WP-SMS Pro">WP-SMS Pro</a></li>
-            <li><span>6</span><a href="/step6-addons.html" title="Add-ons">Add-ons</a></li>
-            <li><span>7</span><a href="/step7-ready.html" title="Ready">Ready</a></li>
+            <li class="is-active"><span></span><a href="/" title="Getting Started">Getting Started</a></li>
+            <li><span></span><a href="/step2-sms-gateway.html" title="SMS gateway">SMS gateway</a></li>
+            <li><span></span><a href="/step3-configuration-result.html" title="Configuration">Configuration</a></li>
+            <li><span></span><a href="/step4-industry.html" title="Test Your Setup">Test Your Setup</a></li>
+            <li><span></span><a href="/step5-wp-sms-pro.html" title="WP-SMS Pro">WP-SMS Pro</a></li>
+            <li><span></span><a href="/step6-addons.html" title="Add-ons">Add-ons</a></li>
+            <li><span></span><a href="/step7-ready.html" title="Ready">Ready</a></li>
           </ul>
         </nav>
       </div>
     </div>
   </header>
-  <section class="c-section--logo u-text-center u-mb-20">
-    <img src="./img/logo.svg" alt="logo"/>
-  </section>
   <section class="o-section c-section--maincontent">
     <div class="o-section__wrapper o-section__wrapper--maincontent">
-      <div class="u-mb-40">
-        <h1 class="u-text-center u-m-0">Welcome to WP SMS!</h1>
-        <p class="u-text-center u-m-0">
-          An optional short description goes here.
+      <div class="c-section__title u-border-b">
+        <span class="c-section__step">Step 1 of 7</span>
+        <h1 class=" u-m-0 u-text-orange">Welcome to WP SMS!</h1>
+        <p class="u-m-0">
+          Set up SMS functionality for your WordPress site by following a few simple steps.
         </p>
       </div>
       <div class="c-form c-form--medium u-flex u-content-center">
         <form action="/step2-sms-gateway.html">
-          <div class="c-form__fieldgroup u-mb-16">
-            <label for="countries">Choose your country</label>
+          <p class="c-form__title">Get Notifications Where You Need Them</p>
+          <div class="c-form__fieldgroup u-mb-32">
+            <label for="countries">Country Code <span class="u-text-red">*</span></label>
             <select name="countries" id="countries">
-              <option value="iran">Field description</option>
-              <option value="iran">Iran</option>
-              <option value="iran">Iran</option>
-              <option value="iran">Iran</option>
-              <option value="iran">Iran</option>
+              <option value="Global">No country code (Global)</option>
+              <option value="Albania">Albania</option>
+              <option value="Algeria">Algeria</option>
+              <option value="Andorra">Andorra</option>
+              <option value="Angola">Angola</option>
             </select>
+            <p class="c-form__description">Choose your country code from the list for accurate delivery. If your number is international and doesn't fit any specific country code, select 'Global'.</p>
           </div>
-          <div class="c-form__fieldgroup">
-            <label for="tel">Enter the admin phone number</label>
-            <input type="tel" id="tel" placeholder="Field description"/>
+          <div class="c-form__fieldgroup u-mb-38">
+            <label for="tel">Your Mobile Number <span class="u-text-red">*</span></label>
+            <input type="tel" id="tel" placeholder="Enter your mobile number"/>
+            <p class="c-form__description">Enter the phone number where you'd like to receive management alerts.</p>
           </div>
-          <div class="c-form__fieldgroup u-flex u-content-center u-pt-30">
+          <div class="c-form__footer u-flex-end">
             <input
               class="c-btn c-btn--primary"
               type="submit"

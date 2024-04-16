@@ -8,10 +8,13 @@
     text-align: center;
     color: $black-color;
     margin: 0;
-
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.41px;
     a {
       color: $primary-orange;
       display: inline-block;
+      font-weight: 500;
       @include mq(lg) {
         display: inline;
       }

@@ -12,18 +12,19 @@
     max-width: calc(1164px - 2em);
   }
 }
-.c-section--maincontent {
-  padding: 0 0 16px 0;
-}
+
 .o-section__wrapper--maincontent {
   padding: 48px 20px 40px 20px;
   background-color: $white-color;
   border-radius: 4px;
-  max-width: 85%;
+  max-width: calc(100% - 20px);
   margin: 0 auto;
   box-sizing: border-box;
+  border: 1px solid #E7E7E7;
+  box-shadow: 0px 2px 4px 0px #00000014;
+
   @include mq(tablet) {
-    max-width: calc(1164px - 34em);
-    padding: 48px 32px 40px 32px;
+    max-width: 792px;
+    padding:38px 38px 15px;
   }
 }
