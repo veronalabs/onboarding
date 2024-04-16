@@ -4,10 +4,8 @@ namespace Veronalabs\Onboarding\Contracts;
 interface OnboardingContract extends HookableContract
 {
 
-    public function router(RouteContract $router);
+    public function config(array $configs);
 
-    public function config(ResourceContract $configs);
-
-    public function steps(ResourceContract $steps);
+    public function steps(array $steps);
 
 }
