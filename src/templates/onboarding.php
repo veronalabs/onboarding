@@ -1,6 +1,5 @@
 <?php 
 use Veronalabs\Onboarding\Onboarding;
-
 ?>
 <div class="wrap">
     <h1><?php echo $currentStep['label'] ?></h1>

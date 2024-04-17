@@ -1,21 +1,9 @@
-<?php 
+<?php
 
 namespace Veronalabs\Onboarding;
 
-use Reflection;
-use ReflectionClass;
-use Veronalabs\Onboarding\Contracts\OnboardingContract;
-use Veronalabs\Onboarding\Contracts\ResourceContract;
-use VeronaLabs\Onboarding\Contracts\RouteContract;
-use Veronalabs\Onboarding\Contracts\SourceContract;
-use Veronalabs\Onboarding\Controllers\RestController;
-use Veronalabs\Onboarding\Resources\Option;
-use Veronalabs\Onboarding\Routes\Route;
-use WP_REST_Request;
-
 class Onboarding
 {
-
     private $config = [];
     private $steps = [];
     private $currentStep = "";
@@ -36,98 +24,109 @@ class Onboarding
     }
 
     public function register()
-    {   
-
-        $this->saveConfig();
-        // $this->saveSteps();
-        
+    {
         $this->data = $this->getData();
+        if (key_exists('status', $this->data) && $this->data['status'] === 'COMPLETED') {
+            return;
+        }
+
         $this->currentStep = $this->getCurrentStep();
         $this->nextStep = $this->getNextStep();
-        add_action( 'admin_menu', array($this, "registerAdminPage") );
-        
+        add_action('admin_menu', array($this, "registerAdminPage"));
     }
 
     public function callbackHandler()
-    {   
-        if($_POST){
-            $this->saveCurrentStep();   
+    {
+        if ($_POST) {
             $this->data['current_step'] = $this->currentStep['slug'];
-            $this->saveData();
+            $this->saveCurrentStep(self::sanitizeMaybeArray($_POST));
+            if (!$this->nextStep) {
+                $this->data['status'] = "COMPLETED";
+            }
         }
-        if($this->currentStep){
-            echo self::loadTemplate(dirname(__FILE__, 1) . '/templates/onboarding.php', ["currentStep" => $this->currentStep]);
-        }else
-        {
-            echo "end of the story";
+
+        if ($this->currentStep) {
+            if ($this->config['template_path']) {
+                echo self::loadTemplate($this->config['template_path'], ["currentStep" => $this->currentStep, "config"  =>  $this->config]);
+            } else {
+                echo self::loadTemplate(dirname(__FILE__, 1) . '/templates/onboarding.php', ["currentStep" => $this->currentStep, "config"  => $this->config]);
+            }
         }
+        $this->saveData();
     }
 
     public function registerAdminPage()
     {
-        if($this->config == []) return;
+        if ($this->config == []) return;
 
         add_menu_page(
-            __( $this->config["title"], 'veronalabs-onboarding' ),
+            __($this->config["title"], 'veronalabs-onboarding'),
             $this->config["title"],
             'manage_options',
-            $this->config['slug']."-onboarding",
-            function(){
+            $this->config['slug'] . "-onboarding",
+            function () {
                 do_action('before_handle_onboarding_' . $this->config['slug']);
-                if( array_key_exists("callback", $this->config) && $this->config['callback'] !== "" )
-                {
-                    if(is_array($this->config['callback']))
-                    {
+                if (array_key_exists("callback", $this->config) && $this->config['callback'] !== "") {
+                    if (is_array($this->config['callback'])) {
                         $class = new $this->config['callback'][0];
                         return $class->{$this->config['callback'][1]}();
                     }
 
-                    if(is_callable($this->config['callback'])){
+                    if (is_callable($this->config['callback'])) {
                         return $this->config['callback']();
                     }
-                    
-                    if(is_string($this->config['callback']))
-                    {
+
+                    if (is_string($this->config['callback'])) {
                         return call_user_func($this->config['callback']);
                     }
                 }
-                
+
                 $this->callbackHandler();
-                
+
                 do_action('after_handle_step_' . $this->config['slug']);
             },
-            plugins_url( 'myplugin/images/icon.png' ),
+            plugins_url('myplugin/images/icon.png'),
             6
         );
     }
 
-    private function saveCurrentStep()
+    private function saveCurrentStep($data)
     {
-        
+
+        if (key_exists('settings_name', $this->config) && $this->config['settings_name'] != "") {
+            $dbData = get_option($this->config['settings_name'], true);
+            foreach ($data as $key => $value) {
+                $dbData[$key] = $value;
+            }
+
+            return update_option($this->config['settings_name'], $dbData);
+        }
+
+        foreach ($data as $key => $value) {
+            update_option($key, $value);
+        }
+        return;
     }
 
     private function saveConfig()
     {
-        if( $this->config != [])
-        {
+        if ($this->config != []) {
             $key = $this->optionKey("config", "veronalabs_onboarding_config");
             update_option($key, $this->config);
         }
     }
-    
+
     private function saveSteps()
     {
-        if( $this->steps != [])
-        {
+        if ($this->steps != []) {
             $key = $this->optionKey("steps", "veronalabs_onboarding_steps");
             update_option($key, $this->steps);
         }
     }
-    
+
     private function saveData()
     {
-        if($this->data)
-        {
+        if ($this->data) {
             $key = $this->optionKey("data", "veronalabs_onboarding_data");
             update_option($key, $this->data);
         }
@@ -135,8 +134,7 @@ class Onboarding
 
     private function getData($force = false)
     {
-        if( $this->data == [] || $force )
-        {
+        if ($this->data == [] || $force) {
             $key = $this->optionKey("data", "veronalabs_onboarding_data");
             $this->data = get_option($key);
         }
@@ -145,13 +143,12 @@ class Onboarding
 
     private function getCurrentStep()
     {
-        $reqStep = isset($_GET['step']) ? sanitize_text_field($_GET['step']) : null;  
-        if($reqStep){
+        $reqStep = isset($_GET['step']) ? sanitize_text_field($_GET['step']) : null;
+        if ($reqStep) {
             return $this->steps[$reqStep];
         }
 
-        return (isset($this->data['current_step']) && $this->data['current_step'] !== "") ? $this->steps[$this->data['current_step']] :  reset($this->steps);  
-        
+        return (isset($this->data['current_step']) && $this->data['current_step'] !== "") ? $this->steps[$this->data['current_step']] :  reset($this->steps);
     }
 
     private function getNextStep()
@@ -167,7 +164,7 @@ class Onboarding
     public static function loadTemplate($path, $parameters = [])
     {
 
-        if (file_exists($path)) {   
+        if (file_exists($path)) {
             ob_start();
 
             extract($parameters);
@@ -179,17 +176,32 @@ class Onboarding
 
     public static function renderField($field)
     {
-        if($field['type'] == 'template')
-        {
+        if ($field['type'] == 'template') {
             echo self::loadTemplate($field['template_path']);
         }
-        if($field['type'] == 'text')
-        {
-            $default = $field['default'] ? $field['default'] : ''; 
+        if ($field['type'] == 'text') {
+            $default = $field['default'] ? $field['default'] : '';
             $isRequired = $field['required'] == true ? 'required' : '';
             echo "<input type='text' name='{$field['option_name']}' placeholder='{$field['label']}' value='$default' $isRequired />";
         }
     }
 
 
+    public static function sanitizeMaybeArray($data)
+    {
+
+        if (is_array($data)) {
+            $final = [];
+            foreach ($data as $key => $value) {
+                if (is_array($value)) {
+                    $final[$key] = self::sanitizeMaybeArray($value);
+                } else {
+                    $final[$key] = sanitize_text_field($value);
+                }
+            }
+            return $final;
+        }
+
+        return sanitize_text_field($data);
+    }
 }
