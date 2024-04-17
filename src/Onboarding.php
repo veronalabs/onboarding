@@ -1,8 +1,6 @@
 <?php
 
 namespace Veronalabs\Onboarding;
-use MailPoet\Config\Capabilities;
-
 class Onboarding
 {
     private $config = [];
@@ -37,7 +35,7 @@ class Onboarding
 
     public function callbackHandler()
     {
-        if ($_POST) {
+        if ($_POST && wp_verify_nonce($_POST['_wpnonce'])) {
             $this->data['current_step'] = $this->currentStep['slug'];
             $this->saveCurrentStep(self::sanitizeMaybeArray($_POST));
             if (!$this->nextStep) {
@@ -58,31 +56,29 @@ class Onboarding
     public function registerAdminPage()
     {
         if ($this->config == []) return;
-        if(isset($this->config['parent'])  && $this->config['parent'])
-        {
+        if (isset($this->config['parent'])  && $this->config['parent']) {
             add_submenu_page(
                 $this->config['parent'],
-                __( $this->config['title'], 'veronalabs-onboarding' ),
-                __( $this->config["title"], 'veronalabs-onboarding' ),
+                __($this->config['title'], 'veronalabs-onboarding'),
+                __($this->config["title"], 'veronalabs-onboarding'),
                 (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
                 $this->config['slug'],
-                function(){
+                function () {
                     $this->adminCallback();
                 }
             );
-        }else{
+        } else {
             add_menu_page(
                 __($this->config["title"], 'veronalabs-onboarding'),
                 __($this->config["title"], 'veronalabs-onboarding'),
                 (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
                 $this->config['slug'],
-                function(){
+                function () {
                     $this->adminCallback();
                 },
                 isset($this->config['admin_icon']) ? $this->config['admin_icon'] : "dashicons-info"
             );
         }
-        
     }
 
     private function adminCallback()

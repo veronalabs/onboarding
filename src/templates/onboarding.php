@@ -6,7 +6,7 @@ use Veronalabs\Onboarding\Onboarding;
     <form method="post" action="<?php echo add_query_arg("step", $currentStep['next']); ?>">
 
         <?php
-            wp_nonce_field("onboarding_step_posted");
+            wp_nonce_field();
             foreach ($currentStep['fields'] as $field) {
                 Onboarding::renderField($field);
             }
