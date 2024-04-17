@@ -1,6 +1,7 @@
 <?php
 
 namespace Veronalabs\Onboarding;
+use MailPoet\Config\Capabilities;
 
 class Onboarding
 {
@@ -8,7 +9,6 @@ class Onboarding
     private $steps = [];
     private $currentStep = "";
     private $nextStep = "";
-
     private $data = [];
 
     public function config(array $config)
@@ -58,36 +58,54 @@ class Onboarding
     public function registerAdminPage()
     {
         if ($this->config == []) return;
-
-        add_menu_page(
-            __($this->config["title"], 'veronalabs-onboarding'),
-            $this->config["title"],
-            'manage_options',
-            $this->config['slug'] . "-onboarding",
-            function () {
-                do_action('before_handle_onboarding_' . $this->config['slug']);
-                if (array_key_exists("callback", $this->config) && $this->config['callback'] !== "") {
-                    if (is_array($this->config['callback'])) {
-                        $class = new $this->config['callback'][0];
-                        return $class->{$this->config['callback'][1]}();
-                    }
-
-                    if (is_callable($this->config['callback'])) {
-                        return $this->config['callback']();
-                    }
-
-                    if (is_string($this->config['callback'])) {
-                        return call_user_func($this->config['callback']);
-                    }
+        if(isset($this->config['parent'])  && $this->config['parent'])
+        {
+            add_submenu_page(
+                $this->config['parent'],
+                __( $this->config['title'], 'veronalabs-onboarding' ),
+                __( $this->config["title"], 'veronalabs-onboarding' ),
+                (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
+                $this->config['slug'],
+                function(){
+                    $this->adminCallback();
                 }
+            );
+        }else{
+            add_menu_page(
+                __($this->config["title"], 'veronalabs-onboarding'),
+                __($this->config["title"], 'veronalabs-onboarding'),
+                (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
+                $this->config['slug'],
+                function(){
+                    $this->adminCallback();
+                },
+                isset($this->config['admin_icon']) ? $this->config['admin_icon'] : "dashicons-info"
+            );
+        }
+        
+    }
 
-                $this->callbackHandler();
+    private function adminCallback()
+    {
+        do_action('before_handle_onboarding_' . $this->config['slug']);
+        if (array_key_exists("callback", $this->config) && $this->config['callback'] !== "") {
+            if (is_array($this->config['callback'])) {
+                $class = new $this->config['callback'][0];
+                return $class->{$this->config['callback'][1]}();
+            }
 
-                do_action('after_handle_step_' . $this->config['slug']);
-            },
-            plugins_url('myplugin/images/icon.png'),
-            6
-        );
+            if (is_callable($this->config['callback'])) {
+                return $this->config['callback']();
+            }
+
+            if (is_string($this->config['callback'])) {
+                return call_user_func($this->config['callback']);
+            }
+        }
+
+        $this->callbackHandler();
+
+        do_action('after_handle_step_' . $this->config['slug']);
     }
 
     private function saveCurrentStep($data)
@@ -107,7 +125,6 @@ class Onboarding
         }
         return;
     }
-
     private function saveConfig()
     {
         if ($this->config != []) {
@@ -115,7 +132,6 @@ class Onboarding
             update_option($key, $this->config);
         }
     }
-
     private function saveSteps()
     {
         if ($this->steps != []) {
@@ -123,7 +139,6 @@ class Onboarding
             update_option($key, $this->steps);
         }
     }
-
     private function saveData()
     {
         if ($this->data) {
@@ -185,7 +200,6 @@ class Onboarding
             echo "<input type='text' name='{$field['option_name']}' placeholder='{$field['label']}' value='$default' $isRequired />";
         }
     }
-
 
     public static function sanitizeMaybeArray($data)
     {
