@@ -119,45 +119,84 @@
                 <p class="c-form__description">This is the number that will appear on recipients’ devices when they receive
                   your messages.</p>
               </div>
-              <ul class="c-form__result">
-                <li
-                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
-                >
-                  <span class="c-form__result-title">Status:</span>
-                  <span class="c-form__result-status">Deactive!</span>
+              <ul class="c-form__result c-form__result--success">
+                Connection Status
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Status</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--sucsess">Active</span>
+                    <span class="c-form__result-description">Your SMS gateway is successfully connected and ready to use.</span>
+                  </span>
                 </li>
-                <li
-                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
-                >
-                  <span class="c-form__result-title">Balance:</span>
-                  <span class="c-form__result-status"
-                    >Username & password failed!</span
-                  >
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Balance</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--primary">$23</span>
+                    <span class="c-form__result-description">This is the current credit in your SMS account.</span>
+                  </span>
                 </li>
-                <li
-                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
-                >
-                  <span class="c-form__result-title">Incoming message:</span>
-                  <span class="c-form__result-status">Does not support!</span>
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Incoming message</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--sucsess">Supported</span>
+                    <span class="c-form__result-description">You can receive SMS messages on your configured number.</span>
+                  </span>
                 </li>
-                <li
-                  class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16"
-                >
-                  <span class="c-form__result-title">Bulk SMS:</span>
-                  <span
-                    class="c-form__result-status c-form__result-status--sucsess"
-                    >Supported!</span
-                  >
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Bulk SMS</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--sucsess">Supported</span>
+                    <span class="c-form__result-description">You can send bulk SMS messages.</span>
+                  </span>
                 </li>
-                <li
-                  class="c-form__result-item u-flex u-content-sp u-align-center"
-                >
-                  <span class="c-form__result-title">Send MMS:</span>
-                  <span class="c-form__result-status">Does not support!</span>
+                <li class="c-form__result-item u-flex u-content-sp u-align-center">
+                  <span class="c-form__result-title">Send MMS</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--sucsess">Supported</span>
+                    <span class="c-form__result-description">Multimedia Messaging Service (MMS) is enabled.</span>
+                  </span>
+                </li>
+              </ul>
+              <ul class="c-form__result c-form__result--danger">
+                Connection Status
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Status</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--danger">Deactivated!</span>
+                    <span class="c-form__result-description">There is an issue with the SMS gateway connection. Please check your settings.</span>
+                  </span>
+                </li>
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Balance</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--primary">-</span>
+                    <span class="c-form__result-description">This is the current credit in your SMS account.</span>
+                  </span>
+                </li>
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Incoming message</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--danger">Does not support!</span>
+                    <span class="c-form__result-description">Receiving SMS messages is not supported with the current gateway. Choose another gateway for this feature.</span>
+                  </span>
+                </li>
+                <li class="c-form__result-item u-flex u-content-sp u-align-center u-mb-16">
+                  <span class="c-form__result-title">Bulk SMS</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--danger">Does not support!</span>
+                    <span class="c-form__result-description">You cannot send bulk SMS messages with the current gateway setup. To enable this feature, please select a gateway that offers bulk messaging.</span>
+                  </span>
+                </li>
+                <li class="c-form__result-item u-flex u-content-sp u-align-center">
+                  <span class="c-form__result-title">Send MMS</span>
+                  <span class="c-form__result-status">
+                    <span class="c-form__result-status--danger">Does not support!</span>
+                    <span class="c-form__result-description">Your gateway does not support sending MMS. For this service, please select a gateway that offers MMS capabilities.</span>
+                  </span>
                 </li>
               </ul>
               <div class="c-form__footer u-content-sp">
-                <input class="c-btn c-btn--light" type="submit" value="Back"/>
+                <a class="c-form__footer--last-step" href="">Back</a>
                 <input
                   class="c-btn c-btn--primary"
                   type="submit"

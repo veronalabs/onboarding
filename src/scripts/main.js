@@ -4,11 +4,11 @@
   document.addEventListener('DOMContentLoaded', function() {
     // Your custom JavaScript goes here
     $("select").select2();
-    $(".js-table").DataTable({
-      searching: false,
+    const table =  $(".js-table").DataTable({
+      searching: true,
       info: false,
+      order: [],
       responsive: true,
-      dom: "rtip",
       language: {
         paginate: {
           previous:
@@ -17,5 +17,31 @@
         },
       },
     });
+
+    const searchInput  = document.querySelector('#searchGateway');
+    searchInput.addEventListener('keyup', function() {
+      table.search(this.value).draw();
+    });
+    // handle step 2
+    const radioButtons = document.querySelectorAll('td input[type="radio"]');
+    radioButtons.forEach(radio => {
+      radio.addEventListener('change', function() {
+        // Reset all rows
+        const rows = document.querySelectorAll('.c-table.js-table tbody tr');
+        rows.forEach(row => {
+          row.classList.remove('selected-row');
+        });
+
+        // Set background color for the selected row
+        const selectedRow = this.closest('tr');
+        selectedRow.classList.add('selected-row');
+
+        // Update button text and enable it
+        const button = document.querySelector('.c-form__footer input[type="submit"]');
+        button.value = 'Continue';
+        button.removeAttribute('disabled');
+      });
+    });
+
   });
 })();

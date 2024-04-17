@@ -5,15 +5,15 @@
   @include mq(tablet) {
     flex-direction: row;
   }
-  select ,.c-search{
-    width: 100%;
+  .select2-container ,.c-search{
+    width: 100%!important;
     @include mq(tablet) {
-       width: 230px;
+       width: 230px!important;
     }
   }
   .c-search{
     @include mq(tablet) {
-      width:100%;
+      width:100%!important;
     }
   }
   .select2-container .select2-selection--single {

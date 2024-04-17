@@ -92,7 +92,7 @@ function styles() {
 
   // For best performance, don't add Sass partials to `gulp.src`
   return (
-    src(["src/styles/**/*.scss", "src/styles/**/*.css","node_modules/select2/dist/css/select2.min.css","node_modules/datatables/media/css/jquery.dataTables.min.css"])
+    src(["src/styles/**/*.scss", "src/styles/**/*.css","node_modules/select2/dist/css/select2.min.css" , "node_modules/tooltip-plugin/dist/tooltip.min.css","node_modules/datatables/media/css/jquery.dataTables.min.css"])
       .pipe($.newer(".tmp/styles"))
       .pipe(sass.sync({ outputStyle: "compressed" }).on("error", sass.logError))
       // .pipe(sass().on('error', sass.logError))
@@ -114,6 +114,7 @@ function scripts() {
     src([
       "./node_modules/select2/dist/js/select2.min.js",
       "./node_modules/datatables/media/js/jquery.dataTables.js",
+      "./node_modules/tooltip-plugin/dist/tooltip.min.js",
       "./src/scripts/main.js",
       // Other scripts
     ])
