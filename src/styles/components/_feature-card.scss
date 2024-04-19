@@ -1,24 +1,28 @@
 .c-feature-card {
-  border-radius: 4px;
-  border: 1px solid $grey-color-3;
-  width: calc(100%   - 8px);
-  margin: 0 auto;
+  width: 100%;
   box-sizing: border-box;
-  padding: 16px;
-  gap: 10px;
-  @include mq(tablet) {
-    width: calc(100% / 2 - 8px);
-  }
+  gap: 14px;
+
   svg {
     flex-shrink: 0;
   }
 }
 .c-feature-card__title {
-  color: $black-color;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  margin: 0 0 9px 0;
+   font-size: 16px;
+  font-weight: 500;
+  line-height: 18.75px;
+  color:#242121 ;
+  margin: 0;
 }
 
+.c-feature-card__content{
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+.c-feature-card__desc{
+  color: #5F5F5F;
+   font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+}

@@ -27,16 +27,28 @@
     background: $grey-color-4!important;
     color: #B2B2B2!important;
     cursor: default;
+    border-color:transparent;
   }
 }
 .c-btn--primary {
   color: $white-color;
   background-color: $primary-orange;
-  border: 0;
+  border:1px solid $primary-orange;
   &:hover {
-    opacity: 1;
+    opacity: 0.7;
+  }
+  &-light{
+    background-color: $white-color;
+    color: $primary-orange;
+    border:1px solid $primary-orange;
+    font-weight: 500;
+    &:hover {
+      color: $white-color;
+      background-color: $primary-orange;
+    }
   }
 }
+
 .c-btn--light {
   color: $black-color;
   background-color: $grey-color-3;

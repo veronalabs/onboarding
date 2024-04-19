@@ -19,9 +19,12 @@
     });
 
     const searchInput  = document.querySelector('#searchGateway');
-    searchInput.addEventListener('keyup', function() {
-      table.search(this.value).draw();
-    });
+    if(searchInput){
+        searchInput.addEventListener('keyup', function() {
+            table.search(this.value).draw();
+        });
+    }
+
     // handle step 2
     const radioButtons = document.querySelectorAll('td input[type="radio"]');
     radioButtons.forEach(radio => {

@@ -1,240 +1,196 @@
 <!DOCTYPE html>
 <html lang="EN">
-  <head>
+<head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXX-X"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXX-X"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag("config", "UA-XXXXXX-X");
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+
+        gtag("config", "UA-XXXXXX-X");
     </script>
 
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="" name="description"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Step 6</title>
 
     <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no" />
+    <meta content="no" name="msapplication-tap-highlight"/>
 
     <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="Veronalabs" />
+    <meta content="yes" name="mobile-web-app-capable"/>
+    <meta content="Veronalabs" name="application-name"/>
 
     <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="Veronalabs" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="apple-touch-icon.png?v=1.0.0"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="favicon-32x32.png?v=1.0.0"
-    />
-    <link rel="manifest" href="site.webmanifest?v=1.0.0" />
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="Veronalabs" name="apple-mobile-web-app-title"/>
+    <link href="apple-touch-icon.png?v=1.0.0" rel="apple-touch-icon" sizes="180x180"/>
+    <link href="favicon-32x32.png?v=1.0.0" rel="icon" sizes="32x32" type="image/png"/>
+    <link href="site.webmanifest?v=1.0.0" rel="manifest"/>
 
     <!-- Tile color for Win8  -->
-    <meta name="msapplication-TileImage" content="mstile-150x150.png" />
-    <meta name="msapplication-TileColor" content="#3c3ce5" />
+    <meta content="mstile-150x150.png" name="msapplication-TileImage"/>
+    <meta content="#3c3ce5" name="msapplication-TileColor"/>
 
     <!-- Color the status bar on mobile devices -->
-    <meta name="theme-color" content="#ffffff" />
+    <meta content="#ffffff" name="theme-color"/>
 
     <!-- build:css styles/vendor.min.css -->
     <!-- endbuild -->
     <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
     <!-- endfonts -->
 
     <!-- build:css styles/main.min.css -->
-    <link rel="stylesheet" href="styles/main.min.css" />
+    <link href="styles/main.min.css" rel="stylesheet"/>
     <!-- endbuild -->
-  </head>
+</head>
 
-  <body>
-    <div id="main" role="content">
-      <section class="c-section--logo u-text-center">
-        <img src="./img/logo.svg" alt="logo" />
-      </section>
-      <header class="o-section c-section--header">
+<body>
+<div id="main" role="content">
+    <section class="c-section--logo u-text-center">
+        <img alt="logo" src="./img/logo.svg"/>
+    </section>
+    <header class="o-section c-section--header">
         <div class="o-section__wrapper">
-          <div class="c-header">
-            <nav class="c-header_navigation">
-              <ul class="s-nav s-nav--steps">
-                <li class="is-active"><span></span><a href="/" title="Getting Started">Getting Started</a></li>
-                <li class="is-active"><span></span><a href="/step2-sms-gateway.html" title="SMS gateway">SMS gateway</a></li>
-                <li class="is-active"><span></span><a href="/step3-configuration-result.html" title="Configuration">Configuration</a></li>
-                <li class="is-active"><span></span><a href="/step4-industry.html" title="Test Your Setup">Test Your Setup</a></li>
-                <li class="is-active"><span></span><a href="/step5-wp-sms-pro.html" title="WP-SMS Pro">WP-SMS Pro</a></li>
-                <li class="is-active"><span></span><a href="/step6-addons.html" title="Add-ons">Add-ons</a></li>
-                <li><span></span><a href="/step7-ready.html" title="Ready">Ready</a></li>
-              </ul>
-            </nav>
-          </div>
+            <div class="c-header">
+                <nav class="c-header_navigation">
+                    <ul class="s-nav s-nav--steps">
+                        <li class="is-active"><span></span><a href="/" title="Getting Started">Getting Started</a></li>
+                        <li class="is-active"><span></span><a href="/step2-sms-gateway.html" title="SMS gateway">SMS gateway</a></li>
+                        <li class="is-active"><span></span><a href="/step3-configuration-result.html" title="Configuration">Configuration</a></li>
+                        <li class="is-active"><span></span><a href="/step4-industry.html" title="Test Your Setup">Test Your Setup</a></li>
+                        <li class="is-active"><span></span><a href="/step5-wp-sms-pro.html" title="WP-SMS Pro">WP-SMS Pro</a></li>
+                        <li class="is-active"><span></span><a href="/step6-addons.html" title="Add-ons">Add-ons</a></li>
+                        <li><span></span><a href="/step7-ready.html" title="Ready">Ready</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-      </header>
-      <section class="o-section c-section--maincontent">
+    </header>
+    <section class="o-section c-section--maincontent">
         <div class="o-section__wrapper o-section__wrapper--maincontent">
-          <div class="u-mb-40">
-            <h1 class="u-text-center u-m-0">SMS Add-Ons</h1>
-            <p class="u-text-center u-m-0">
-              An optional short description goes here.
-            </p>
-          </div>
-          <div
-            class="c-form u-flex u-content-center u-align-center u-flex--column"
-          >
-            <form action="/step7-ready.html">
-              <div class="c-form__fieldgroup">
-                <div class="c-addons">
-                  <div
-                    class="c-addons__items u-flex u-content-sp u-align-stretch"
-                  >
-                    <div
-                      class="c-addon-card u-flex u-flex--column u-content-start u-align-start"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="46"
-                        height="29"
-                        fill="none"
-                      >
-                        <path
-                          fill="#9B5C8F"
-                          d="M42 .522H4a4 4 0 0 0-4 4v16a4 4 0 0 0 4 4h19l8 4-2-4h13a4 4 0 0 0 4-4v-16a4 4 0 0 0-4-4Z"
-                        />
-                        <path
-                          fill="#fff"
-                          d="M39.44 8.522c.041 0 .133.005.278.038.341.077.558.198.82.686.31.56.46 1.283.46 2.215 0 1.398-.317 2.64-.973 3.802-.706 1.26-1.222 1.26-1.47 1.26-.041 0-.133-.006-.277-.039-.343-.077-.56-.198-.81-.666-.313-.574-.47-1.333-.47-2.253 0-1.399.314-2.63.963-3.765.727-1.278 1.255-1.278 1.48-1.278Zm0-3c-1.67 0-3.026.931-4.087 2.793-.904 1.582-1.355 3.332-1.355 5.25 0 1.434.278 2.662.835 3.686.626 1.173 1.547 1.88 2.782 2.16.33.074.643.111.94.111 1.687 0 3.042-.93 4.087-2.793.903-1.6 1.355-3.35 1.355-5.268 0-1.452-.278-2.662-.834-3.668-.627-1.173-1.548-1.88-2.783-2.16a4.296 4.296 0 0 0-.94-.11Zm-12 3c.041 0 .133.005.268.036.334.076.572.207.83.69.31.557.46 1.281.46 2.213 0 1.398-.318 2.64-.974 3.802-.706 1.26-1.222 1.26-1.47 1.26-.04 0-.131-.006-.276-.039-.342-.077-.56-.198-.81-.666-.313-.574-.47-1.333-.47-2.253 0-1.399.313-2.63.962-3.765.729-1.278 1.255-1.278 1.48-1.278Zm0-3c-1.67 0-3.026.931-4.087 2.793-.904 1.582-1.356 3.332-1.356 5.25 0 1.434.279 2.662.835 3.686.627 1.173 1.549 1.88 2.784 2.16.33.074.643.111.939.111 1.686 0 3.043-.93 4.087-2.793.904-1.6 1.355-3.35 1.355-5.268 0-1.452-.277-2.662-.834-3.668-.627-1.173-1.566-1.88-2.784-2.16a4.296 4.296 0 0 0-.939-.11Zm-9.943 16c-.42 0-.831-.178-1.122-.505-2.197-2.479-3.546-5.735-4.34-8.343-1.145 2.42-2.688 5.515-4.251 8.12a1.5 1.5 0 0 1-2.733-.378C2.839 12.287 2.044 6.465 2.01 6.22a1.5 1.5 0 0 1 2.974-.4c.007.05.57 4.177 2.033 10.2 2.218-4.209 4.077-8.536 4.102-8.59a1.5 1.5 0 0 1 2.865.387c.007.052.542 3.825 2.245 7.451.718-7.166 2.872-10.839 2.982-11.02a1.5 1.5 0 0 1 2.573 1.542c-.026.044-2.788 4.846-2.788 14.231a1.5 1.5 0 0 1-1.5 1.5Z"
-                        />
-                      </svg>
-                      <h2 class="c-addon-card__title">
-                        WP-SMS WooCommerce Pro
-                      </h2>
-                      <p class="c-addon-card__desc">
-                        Additional features for WooCommerce for SMS marketing
-                        purposes, such as SMS campaigns, abandoned cart SMS
-                        notifications, manageable SMS notifications, and local
-                        shipping SMS notifications.
-                      </p>
-                      <div
-                        class="c-addon-card__content u-flex u-align-center u-content-sp"
-                      >
-                        <span class="c-addon-card__price"
-                          >From <strong>$29</strong></span
-                        >
-                        <button class="c-btn c-btn--ghost c-btn--addons-card">
-                          View details <img src="./img/btn-icon.svg" alt="View details" />
-                        </button>
-                      </div>
+            <div class="c-section__title">
+                <span class="c-section__step">Step 6 of 7</span>
+                <h1 class=" u-m-0">SMS Add-Ons</h1>
+                <p class="u-m-0">
+                    Send a test SMS to the administrator's phone number to confirm everything is working as it should. </p>
+            </div>
+            <div class="c-form u-flex u-content-center u-align-center u-flex--column">
+                <form action="/step7-ready.html">
+                    <div class="c-addons__items u-flex u-content-sp u-align-stretch">
+                        <div class="c-addon-card u-flex u-flex--column u-content-start u-align-start">
+                            <span class="c-addon__icon c-addon__icon--booking-integration"></span>
+                            <h2 class="c-addon-card__title">
+                                WP SMS Booking Integrations </h2>
+                            <p class="c-addon-card__desc">
+                                WP SMS Booking Integrations is a powerful add-on for WP SMS that enables you to send and receive SMS notifications for your WordPress booking system. This add-on is compatible with some of the most popular booking plugins for WordPress, including BookingPress, WooCommerce Appointments, and Booking Calendar.
+                            </p>
+                            <div class="c-addon-card__footer">
+                                <span class="c-addon-card__price">From <strong>$14</strong> /Year</span>
+                                <button class="c-btn  c-btn--addons-card">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="c-addon-card u-flex u-flex--column u-content-start u-align-start">
+                            <span class="c-addon__icon c-addon__icon--fluent-integration"></span>
+                            <h2 class="c-addon-card__title">
+                                WP SMS Fluent Integrations </h2>
+                            <p class="c-addon-card__desc">
+                                Looking to boost your WordPress SMS notifications? Meet WP SMS Fluent Integrations, the perfect add-on for WP SMS. It effortlessly connects your WordPress website to Fluent CRM, Fluent Forms, and Fluent Support for improved communication.
+                            </p>
+                            <div class="c-addon-card__footer">
+                                <span class="c-addon-card__price">From <strong>$14</strong> /Year</span>
+                                <button class="c-btn  c-btn--addons-card">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="c-addon-card u-flex u-flex--column u-content-start u-align-start" >
+                            <span class="c-addon__icon c-addon__icon--elementor"></span>
+                            <h2 class="c-addon-card__title">
+                                WP SMS Elementor </h2>
+                            <p class="c-addon-card__desc">
+                                Get ready to supercharge your Elementor forms with the WP SMS Elementor add-on! It's the easiest way to send SMS notifications to specific phone numbers when someone fills out your form.
+                            </p>
+                            <div class="c-addon-card__footer">
+                                <span class="c-addon-card__price">From <strong>$14</strong> /Year</span>
+                                <button class="c-btn  c-btn--addons-card">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="c-addon-card u-flex u-flex--column u-content-start u-align-start">
+                            <span class="c-addon__icon c-addon__icon--membership-integration"></span>
+                            <h2 class="c-addon-card__title">
+                                WP SMS Membership Integrations </h2>
+                            <p class="c-addon-card__desc">
+                                Make your membership site communication even better with our WP SMS Membership Integrations add-on
+                            </p>
+                            <div class="c-addon-card__footer">
+                                <span class="c-addon-card__price">From <strong>$14</strong> /Year</span>
+                                <button class="c-btn  c-btn--addons-card">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="c-addon-card u-flex u-flex--column u-content-start u-align-start">
+                            <span class="c-addon__icon c-addon__icon--two-way"></span>
+                            <h2 class="c-addon-card__title">
+                                WP SMS Two-Way </h2>
+                            <p class="c-addon-card__desc">
+                                Easily receive SMS messages from your subscribers or clients with the WP SMS Two-Way add-on. This feature allows you to enable incoming messages on the inbox page.
+                            </p>
+                            <div class="c-addon-card__footer">
+                                <span class="c-addon-card__price">From <strong>$14</strong> /Year</span>
+                                <button class="c-btn  c-btn--addons-card">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="c-addon-card u-flex u-flex--column u-content-start u-align-start">
+                            <span class="c-addon__icon c-addon__icon--wooCommerce"></span>
+                            <h2 class="c-addon-card__title">
+                                WP SMS WooCommerce Pro </h2>
+                            <p class="c-addon-card__desc">
+                                Enhance your online store with a suite of SMS-based functionalities: Login, register, and reset passwords via SMS, verify mobile numbers during checkout, launch SMS marketing campaigns, manage abandoned cart and shipping notifications through SMS.
+                             </p>
+                            <div class="c-addon-card__footer">
+                                <span class="c-addon-card__price">From <strong>$14</strong> /Year</span>
+                                <button class="c-btn  c-btn--addons-card">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div
-                      class="c-addon-card u-flex u-flex--column u-content-start u-align-start"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="46"
-                        height="34"
-                        fill="none"
-                      >
-                        <path
-                          fill="#61BFFC"
-                          d="M19.286 20.08h23.428c1.815 0 3.286-1.177 3.286-2.628V2.708C46 1.257 44.529.08 42.714.08H19.286C17.47.08 16 1.257 16 2.71V17.45c0 1.452 1.471 2.63 3.286 2.63Z"
-                        />
-                        <path
-                          fill="#61BFFC"
-                          d="M35.577 19.383v5.914l-7.062-6.42 7.062.506Z"
-                        />
-                        <path
-                          fill="#fff"
-                          d="M35.862 13.663a1.027 1.027 0 0 1-1.027-1.028v-2.191a2.147 2.147 0 0 0-2.146-2.146h-8.468a1.027 1.027 0 0 1 0-2.055h8.468a4.2 4.2 0 0 1 4.2 4.2v2.192a1.027 1.027 0 0 1-1.027 1.028Z"
-                        />
-                        <path
-                          fill="#fff"
-                          d="M26.949 12.06a1.026 1.026 0 0 1-.808-.392l-3.033-3.852a1.028 1.028 0 0 1 .08-1.362l3.172-3.172a1.027 1.027 0 0 1 1.453 1.453L25.287 7.26l2.469 3.136a1.027 1.027 0 0 1-.807 1.662Z"
-                        />
-                        <path
-                          fill="#fff"
-                          d="M25.837 7.247H9.697a4.257 4.257 0 0 0-4.257 4.257v12.03a4.257 4.257 0 0 0 4.257 4.257h16.14a4.257 4.257 0 0 0 4.257-4.257v-12.03a4.257 4.257 0 0 0-4.257-4.257Z"
-                        />
-                        <path
-                          fill="#61BFFC"
-                          d="M24.933 9.66H3.067C1.373 9.66 0 10.835 0 12.287V27.03c0 1.452 1.373 2.63 3.067 2.63h21.866c1.694 0 3.067-1.178 3.067-2.63V12.288c0-1.452-1.373-2.629-3.067-2.629Z"
-                        />
-                        <path
-                          fill="#61BFFC"
-                          d="M4.11 27.745v5.914l7.062-6.42-7.062.506Z"
-                        />
-                        <path
-                          fill="#fff"
-                          d="M18.15 21.699H9.68a4.2 4.2 0 0 1-4.2-4.201v-1.92a1.027 1.027 0 0 1 2.054 0v1.92a2.146 2.146 0 0 0 2.147 2.146h8.468a1.028 1.028 0 0 1 0 2.055Z"
-                        />
-                        <path
-                          fill="#fff"
-                          d="M15.02 25.061a1.026 1.026 0 0 1-.745-1.735l2.52-2.652-2.403-2.69a1.028 1.028 0 1 1 1.532-1.368l3.034 3.395a1.028 1.028 0 0 1-.02 1.392l-3.173 3.338a1.025 1.025 0 0 1-.745.32Z"
-                        />
-                      </svg>
-                      <h2 class="c-addon-card__title">WP-SMS Two-Way</h2>
-                      <p class="c-addon-card__desc">
-                        Receive SMS messages from your subscribers or clients
-                        using the WP SMS Two Way add-on, which allows you to
-                        enable incoming messages on the inbox page.
-                      </p>
-                      <div
-                        class="c-addon-card__content u-flex u-align-center u-content-sp"
-                      >
-                        <span class="c-addon-card__price"
-                          >From <strong>$29</strong></span
-                        >
-                        <button class="c-btn c-btn--ghost c-btn--addons-card">
-                          View details <img src="./img/btn-icon.svg" alt="View details" />
-                        </button>
-                      </div>
+                    <div class="c-form__footer u-content-sp">
+                        <a class="c-form__footer--last-step" href="">Back</a>
+                        <input class="c-btn c-btn--primary" type="submit" value="Continue"/>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="c-form__fieldgroup u-text-center u-pt-30 u-flex u-content-center u-align-center u-gap-13"
-              >
-                <input class="c-btn c-btn--light" type="submit" value="Back" />
-                <input
-                  class="c-btn c-btn--primary"
-                  type="submit"
-                  value="Continue"
-                />
-              </div>
-            </form>
-          </div>
+                </form>
+            </div>
         </div>
-      </section>
-      <section class="c-section--nextstep u-text-center">
-        <a href="#" class="c-link" title="Skip this step">Skip this step</a>
-      </section>
-    </div>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    </section>
+    <section class="c-section--nextstep u-text-center">
+        <a class="c-link" href="#" title="Skip this step">Skip this step</a>
+    </section>
+</div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <!-- build:js scripts/main.min.js -->
-    <script src="scripts/main.min.js"></script>
-    <!-- endbuild -->
-  </body>
+<!-- build:js scripts/main.min.js -->
+<script src="scripts/main.min.js"></script>
+<!-- endbuild -->
+</body>
 </html>

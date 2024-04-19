@@ -8,6 +8,7 @@
     font-weight: 700;
     line-height: 17.58px;
     color:$dark-grey-3;
+    margin: 0;
   }
   label {
     display: block;
@@ -92,13 +93,16 @@
 .c-form__result {
   width: 100%;
   background: $grey-color-4;
-  padding: 16px 32px;
+  padding: 16px ;
   box-sizing: border-box;
    font-size: 15px;
   font-weight: 700;
   line-height: 17.58px;
   text-align: left;
   color: $black-color;
+  @include mq(tablet) {
+    padding: 16px 32px;
+  }
   li{
     margin-bottom: 12px;
     &:first-child{
@@ -121,19 +125,24 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 6px;
   @include mq(tablet) {
     flex-direction: row;
     align-items: center;
+    gap: 0;
     }
 }
 
 .c-form__result-title {
    font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 16.41px;
  color: $black-color;
   display: flex;
   flex: 0 0 23%;
+  @include mq(tablet) {
+    font-weight: 400;
+  }
 }
 .c-form__result-status {
   display: flex;
@@ -166,17 +175,6 @@
   color: $black-color;
 }
 
-.c-form--industry {
-  form {
-    width: 262px;
-    max-width: 100%;
-  }
-  .c-form__fieldgroup--checkbox {
-    border-radius: 4px;
-    border: 1px solid $grey-color-3;
-    padding: 12px 0;
-  }
-}
 .c-form__fieldgroup{
   display: flex;
   flex-direction: column;
@@ -199,12 +197,20 @@
   display: flex;
   width: calc(100% + 40px);
   margin: 0 -20px;
-  padding: 15px 38px 0;
+  padding: 15px 20px 0;
   box-sizing: border-box;
   border-top: 1px solid #E7E7E7;
   @include mq(lg) {
     width: calc(100% + 78px);
     margin: 0 -38px;
+  }
+  @include mq(tablet) {
+     padding:15px 38px 0;
+  }
+  div.u-flex{
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
   &--last-step{
     color:$primary-orange;
