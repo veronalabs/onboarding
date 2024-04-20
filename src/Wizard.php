@@ -15,14 +15,14 @@ class Wizard
 
     public static function getInstance()
     {
-
         if (!self::$instance) {
             self::$instance = new self;
         }
-        add_action("admin_init", [self::$instance, "maybeSkippedStep"]);
-        add_action("admin_init", [self::$instance, "maybeExitedWizard"]);
-        add_action("admin_init", [self::$instance, "maybeJustStarted"]);
-        add_action("init", [self::$instance, "register"]);
+
+        add_action('admin_init', [self::$instance, 'maybeSkippedStep']);
+        add_action('admin_init', [self::$instance, 'maybeExitedWizard']);
+        add_action('admin_init', [self::$instance, 'maybeJustStarted']);
+        add_action('init', [self::$instance, 'register']);
 
         return self::$instance;
     }
@@ -50,15 +50,15 @@ class Wizard
         $this->setNextStep();
         $this->setPrevStep();
 
-        add_action('admin_menu', [self::$instance, "registerAdminPage"]);
+        add_action('admin_menu', [self::$instance, 'registerAdminPage']);
     }
 
     public function callbackHandler()
     {
-
         if ($_POST && wp_verify_nonce($_POST['_wpnonce'])) {
-            $this->data['current_step'] =   $this->currentStep['slug'];
+            $this->data['current_step'] = $this->currentStep['slug'];
             $this->saveCurrentStep(self::sanitizeMaybeArray($_POST));
+
             if (!$this->nextStep) {
                 $this->data['status'] = "COMPLETED";
             }
@@ -66,9 +66,9 @@ class Wizard
 
         if ($this->currentStep) {
             if (isset($this->config['template_path'])) {
-                echo self::loadTemplate($this->config['template_path'], ["currentStep" => $this->currentStep, "config"  =>  $this->config]);
+                echo self::loadTemplate($this->config['template_path'], ["currentStep" => $this->currentStep, "config" => $this->config]);
             } else {
-                echo self::loadTemplate(dirname(__FILE__, 1) . '/templates/onboarding.php', ["currentStep" => $this->currentStep, "config"  => $this->config]);
+                echo self::loadTemplate(dirname(__FILE__, 1) . '/templates/onboarding.php', ["currentStep" => $this->currentStep, "config" => $this->config]);
             }
         }
 
@@ -82,11 +82,11 @@ class Wizard
     public function registerAdminPage()
     {
         if ($this->config == []) return;
-        if (isset($this->config['parent'])  && $this->config['parent']) {
+        if (isset($this->config['parent']) && $this->config['parent']) {
             add_submenu_page(
                 $this->config['parent'],
                 __($this->config['title'], 'veronalabs-onboarding'),
-                __($this->config["title"], 'veronalabs-onboarding'),
+                __($this->config['title'], 'veronalabs-onboarding'),
                 (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
                 $this->config['slug'],
                 function () {
@@ -95,8 +95,8 @@ class Wizard
             );
         } else {
             add_menu_page(
-                __($this->config["title"], 'veronalabs-onboarding'),
-                __($this->config["title"], 'veronalabs-onboarding'),
+                __($this->config['title'], 'veronalabs-onboarding'),
+                __($this->config['title'], 'veronalabs-onboarding'),
                 (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
                 $this->config['slug'],
                 function () {
@@ -132,7 +132,6 @@ class Wizard
 
     private function saveCurrentStep($data)
     {
-
         if (key_exists('settings_name', $this->config) && $this->config['settings_name'] != "") {
             $dbData = get_option($this->config['settings_name'], true);
             foreach ($data as $key => $value) {
@@ -145,22 +144,21 @@ class Wizard
         foreach ($data as $key => $value) {
             update_option($key, $value);
         }
-        return;
     }
 
     public function maybeSkippedStep()
     {
         global $pagenow;
         if ($pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug'] && isset($_GET['skip'])) {
-            $skip = sanitize_text_field($_GET['skip']);
+            $skip     = sanitize_text_field($_GET['skip']);
             $location = remove_query_arg('skip');
             if ($skip == "next") {
                 $this->data['current_step'] = $this->nextStep['slug'];
-                $location = add_query_arg(['step' => $this->nextStep['slug']], $location);
+                $location                   = add_query_arg(['step' => $this->nextStep['slug']], $location);
             }
             if ($skip == "prev") {
                 $this->data['current_step'] = $this->prevStep['slug'];
-                $location = add_query_arg(['step' => $this->prevStep['slug']], $location);
+                $location                   = add_query_arg(['step' => $this->prevStep['slug']], $location);
             }
 
             $this->saveData();
@@ -172,7 +170,7 @@ class Wizard
     {
         global $pagenow;
         if ($pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug'] && isset($_GET['exit'])) {
-            $this->data['status']   =   "EXITED";
+            $this->data['status'] = "EXITED";
             $this->saveData();
             $this->redirect();
         }
@@ -181,6 +179,7 @@ class Wizard
     public function maybeJustStarted()
     {
         global $pagenow;
+
         if (get_option('wizard_just_started') && $pagenow == 'plugins.php' && $this->data == []) {
             exit(wp_redirect($this->startWizardURI()));
         }
@@ -213,7 +212,7 @@ class Wizard
     private function getData($force = false)
     {
         if ($this->data == [] || $force) {
-            $key = $this->optionKey("data", "veronalabs_onboarding_data");
+            $key        = $this->optionKey("data", "veronalabs_onboarding_data");
             $this->data = get_option($key);
         }
         return $this->data;
@@ -226,14 +225,16 @@ class Wizard
             return $this->steps[$reqStep];
         }
 
-        return (isset($this->data['current_step']) && $this->data['current_step'] !== "") ? $this->steps[$this->data['current_step']] :  reset($this->steps);
+        return (isset($this->data['current_step']) && $this->data['current_step'] !== "") ? $this->steps[$this->data['current_step']] : reset($this->steps);
     }
 
     private function setCurrentStep()
     {
         global $pagenow;
-        $this->currentStep  =   $this->getCurrentStep();
-        if (!$this->data  && $pagenow == "plugin.php") {
+
+        $this->currentStep = $this->getCurrentStep();
+
+        if (!$this->data && $pagenow == "plugin.php") {
             $this->data['current_step'] = reset($this->steps)['slug'];
             $this->saveData();
         }
@@ -246,11 +247,10 @@ class Wizard
 
     private function setPrevStep()
     {
-
         foreach ($this->steps as $key => $value) {
             if (isset($value['next']) && $value['next'] == $this->currentStep['slug']) {
-                $this->prevStep = $this->steps[$key];
-                $this->currentStep['prev']  =   $key;
+                $this->prevStep            = $this->steps[$key];
+                $this->currentStep['prev'] = $key;
                 break;
             }
         }
@@ -279,8 +279,9 @@ class Wizard
         if ($field['type'] == 'template') {
             echo self::loadTemplate($field['template_path']);
         }
+
         if ($field['type'] == 'text') {
-            $default = $field['default'] ? $field['default'] : '';
+            $default    = $field['default'] ? $field['default'] : '';
             $isRequired = $field['required'] == true ? 'required' : '';
             echo "<input type='text' name='{$field['option_name']}' placeholder='{$field['label']}' value='$default' $isRequired />";
         }
@@ -288,7 +289,6 @@ class Wizard
 
     public static function sanitizeMaybeArray($data)
     {
-
         if (is_array($data)) {
             $final = [];
             foreach ($data as $key => $value) {
@@ -298,6 +298,7 @@ class Wizard
                     $final[$key] = sanitize_text_field($value);
                 }
             }
+
             return $final;
         }
 
@@ -308,12 +309,13 @@ class Wizard
     {
         $url = admin_url('admin.php');
         $url = add_query_arg(['page' => $slug ? $slug : self::$instance->config['slug']], $url);
+
         return $url;
     }
 
     public static function startWizard()
     {
-        update_option("wizard_just_started", true);
+        update_option('wizard_just_started', true);
     }
 
     private function redirect($url = null)
