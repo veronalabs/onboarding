@@ -72,6 +72,7 @@ class Wizard
             }
         }
 
+        // @todo, wizard_just_started should be wizard_{slug}_just_started
         if (get_option('wizard_just_started')) {
             delete_option('wizard_just_started');
         }
