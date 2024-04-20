@@ -27,7 +27,9 @@
     border-radius: 4px;
 
     &::placeholder {
-      color: $grey-color-5;
+      color: #9D9793;
+      font-size: 14px!important;
+      line-height: 16.41px;
     }
   }
 
@@ -235,9 +237,27 @@
     padding: 15px 38px 0;
   }
 
+  &--step-4 {
+    @media(max-width: 472px) {
+      flex-direction: column-reverse;
+      gap: 32px;
+      .c-form__footer--last-step {
+        justify-content: flex-start;
+        width: 100%;
+        display: flex;
+      }
+      div.u-flex {
+        justify-content: center;
+      }
+    }
+  }
+  @media(max-width: 360px) {
+    &--step-4 div.u-flex .c-btn {
+      padding: 6px 12px;
+    }
+  }
   div.u-flex {
     gap: 10px;
-    flex-wrap: wrap;
     justify-content: flex-end;
   }
 

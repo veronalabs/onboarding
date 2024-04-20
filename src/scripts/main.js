@@ -24,6 +24,14 @@
             table.search(this.value).draw();
         });
     }
+    // steps
+      const steps = document.querySelectorAll('.s-nav--steps li span');
+      steps.forEach(step => {
+          step.addEventListener('click', function() {
+             const href= step.nextElementSibling.getAttribute('href');
+             if(href) window.location.href=href
+          });
+      });
 
     // handle step 2
     const radioButtons = document.querySelectorAll('td input[type="radio"]');
