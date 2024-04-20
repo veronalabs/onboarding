@@ -1,7 +1,8 @@
 <?php
 
 namespace Veronalabs\Onboarding;
-class Onboarding
+
+class Wizard
 {
     private $config = [];
     private $steps = [];
@@ -24,7 +25,7 @@ class Onboarding
     public function register()
     {
         $this->data = $this->getData();
-        if (key_exists('status', $this->data) && $this->data['status'] === 'COMPLETED') {
+        if (isset($this->data['status']) && $this->data['status'] === 'COMPLETED') {
             return;
         }
 
