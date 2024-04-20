@@ -6,9 +6,26 @@ class Wizard
 {
     private $config = [];
     private $steps = [];
-    private $currentStep = "";
-    private $nextStep = "";
+    private $currentStep = null;
+    private $nextStep = null;
+    private $prevStep = null;
     private $data = [];
+
+    private static $instance;
+
+    public static function getInstance()
+    {
+
+        if (!self::$instance) {
+            self::$instance = new self;
+        }
+        add_action("admin_init", [self::$instance, "maybeSkippedStep"]);
+        add_action("admin_init", [self::$instance, "maybeExitedWizard"]);
+        add_action("admin_init", [self::$instance, "maybeJustStarted"]);
+        add_action("init", [self::$instance, "register"]);
+
+        return self::$instance;
+    }
 
     public function config(array $config)
     {
@@ -25,19 +42,22 @@ class Wizard
     public function register()
     {
         $this->data = $this->getData();
-        if (isset($this->data['status']) && $this->data['status'] === 'COMPLETED') {
+        if (isset($this->data['status']) && in_array($this->data['status'], array('COMPLETED', 'EXITED'))) {
             return;
         }
 
-        $this->currentStep = $this->getCurrentStep();
-        $this->nextStep = $this->getNextStep();
-        add_action('admin_menu', array($this, "registerAdminPage"));
+        $this->setCurrentStep();
+        $this->setNextStep();
+        $this->setPrevStep();
+
+        add_action('admin_menu', [self::$instance, "registerAdminPage"]);
     }
 
     public function callbackHandler()
     {
+
         if ($_POST && wp_verify_nonce($_POST['_wpnonce'])) {
-            $this->data['current_step'] = $this->currentStep['slug'];
+            $this->data['current_step'] =   $this->currentStep['slug'];
             $this->saveCurrentStep(self::sanitizeMaybeArray($_POST));
             if (!$this->nextStep) {
                 $this->data['status'] = "COMPLETED";
@@ -45,12 +65,17 @@ class Wizard
         }
 
         if ($this->currentStep) {
-            if ($this->config['template_path']) {
+            if (isset($this->config['template_path'])) {
                 echo self::loadTemplate($this->config['template_path'], ["currentStep" => $this->currentStep, "config"  =>  $this->config]);
             } else {
                 echo self::loadTemplate(dirname(__FILE__, 1) . '/templates/onboarding.php', ["currentStep" => $this->currentStep, "config"  => $this->config]);
             }
         }
+
+        if (get_option('wizard_just_started')) {
+            delete_option('wizard_just_started');
+        }
+
         $this->saveData();
     }
 
@@ -122,6 +147,45 @@ class Wizard
         }
         return;
     }
+
+    public function maybeSkippedStep()
+    {
+        global $pagenow;
+        if ($pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug'] && isset($_GET['skip'])) {
+            $skip = sanitize_text_field($_GET['skip']);
+            $location = remove_query_arg('skip');
+            if ($skip == "next") {
+                $this->data['current_step'] = $this->nextStep['slug'];
+                $location = add_query_arg(['step' => $this->nextStep['slug']], $location);
+            }
+            if ($skip == "prev") {
+                $this->data['current_step'] = $this->prevStep['slug'];
+                $location = add_query_arg(['step' => $this->prevStep['slug']], $location);
+            }
+
+            $this->saveData();
+            $this->redirect($location);
+        }
+    }
+
+    public function maybeExitedWizard()
+    {
+        global $pagenow;
+        if ($pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug'] && isset($_GET['exit'])) {
+            $this->data['status']   =   "EXITED";
+            $this->saveData();
+            $this->redirect();
+        }
+    }
+
+    public function maybeJustStarted()
+    {
+        global $pagenow;
+        if (get_option('wizard_just_started') && $pagenow == 'plugins.php' && $this->data == []) {
+            exit(wp_redirect($this->startWizardURI()));
+        }
+    }
+
     private function saveConfig()
     {
         if ($this->config != []) {
@@ -129,6 +193,7 @@ class Wizard
             update_option($key, $this->config);
         }
     }
+
     private function saveSteps()
     {
         if ($this->steps != []) {
@@ -136,6 +201,7 @@ class Wizard
             update_option($key, $this->steps);
         }
     }
+
     private function saveData()
     {
         if ($this->data) {
@@ -163,9 +229,31 @@ class Wizard
         return (isset($this->data['current_step']) && $this->data['current_step'] !== "") ? $this->steps[$this->data['current_step']] :  reset($this->steps);
     }
 
-    private function getNextStep()
+    private function setCurrentStep()
     {
-        return array_key_exists('next', $this->currentStep) ? $this->steps[$this->currentStep['next']] : null;
+        global $pagenow;
+        $this->currentStep  =   $this->getCurrentStep();
+        if (!$this->data  && $pagenow == "plugin.php") {
+            $this->data['current_step'] = reset($this->steps)['slug'];
+            $this->saveData();
+        }
+    }
+
+    private function setNextStep()
+    {
+        $this->nextStep = array_key_exists('next', $this->currentStep) ? $this->steps[$this->currentStep['next']] : null;
+    }
+
+    private function setPrevStep()
+    {
+
+        foreach ($this->steps as $key => $value) {
+            if (isset($value['next']) && $value['next'] == $this->currentStep['slug']) {
+                $this->prevStep = $this->steps[$key];
+                $this->currentStep['prev']  =   $key;
+                break;
+            }
+        }
     }
 
     private function optionKey($option, $default)
@@ -214,5 +302,28 @@ class Wizard
         }
 
         return sanitize_text_field($data);
+    }
+
+    public static function startWizardURI($slug = null)
+    {
+        $url = admin_url('admin.php');
+        $url = add_query_arg(['page' => $slug ? $slug : self::$instance->config['slug']], $url);
+        return $url;
+    }
+
+    public static function startWizard()
+    {
+        update_option("wizard_just_started", true);
+    }
+
+    private function redirect($url = null)
+    {
+        if ($url) {
+            exit(wp_redirect(wp_sanitize_redirect($url)));
+        }
+
+        if (isset($this->config['redirect_url'])) {
+            exit(wp_redirect(wp_sanitize_redirect($this->config['redirect_url'])));
+        }
     }
 }
