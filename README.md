@@ -1,13 +1,13 @@
-# onboarding
+# WordPress Onboarding
 
-This package containes only Wizard class which follows singleton pattern, </br>
-for making instance of the class you just need: 
+This package contains only Wizard class which follows a singleton pattern, </br>
+To make an instance of the class you need the following: 
 
 <code>$wizard = Wizard::getInstance();</code>
 
 
 ### config() method
-now we need register our config with <code> config($array) </code> method that accepts only one 
+now we need register our config with <code>config($array)</code> method that accepts only one 
 array type argument with the following consideration:
 
 This array **MUST** include:
@@ -22,8 +22,8 @@ and **SHOULD**‌ include:
 | Name         | purpose                                                            | Default                                                                                                                      |
 |--------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | name         | General name                                                       | Onboarding Wizard                                                                                                            |
-| capability   | access controll                                                  | `manage_options`                                                                                                             |
-| redirect_url | redirection url after exite/completed                              | `admin_url()`                                                                                                                |
+| capability   | access control                                                  | `manage_options`                                                                                                             |
+| redirect_url | redirection URL after excite/completed                              | `admin_url()`                                                                                                                |
 | logo         | front-end usage                                                    |                                                                                                                              |
 | css_url      | front-end usage                                                    |                                                                                                                              |
 | options      | custom key for saving data-section such as `config` `steps` `data` | <p>config: `veronalabs_onboarding_config`</br> steps: `veronalabs_onboarding_steps` </br> data: `veronalabs_onboarding_data` |
@@ -51,7 +51,7 @@ $wizard->config([
 
 ## step() method
 
-For registering steps, you can use this method which accepts two argument as follows: 
+For registering steps, you can use this method which accepts two arguments as follows: 
 -   string `key` (same as `args`'s slug recommended)  
 -   array `args` that includes :
 
@@ -61,16 +61,16 @@ For registering steps, you can use this method which accepts two argument as fol
 | title       | General Title                                        |         |
 | slug        | Unique slug                                          |         |
 | label       | Label of this step                                   |         |
-| next        | Next steps's key (last step dosn't include this one) |         |
+| next        | Next steps' key (the last step doesn't include this one) |         |
 | description | Description of this step                             |         |
 | fields      | [step() method's fields](#text-field)  |         |
 
 
 ### step() method's fields  
 
-> notice : any extra key can be added to the args array and will be passed to the template as `$config` variable
+> Notice: any extra key can be added to the args array and will be passed to the template as `$config` variable
 
-> also current step's data will be passed to the template as `$currentStep` variable 
+> Also, the current step's data will be passed to the template as `$currentStep` variable 
 
 #### Text Field: 
 
@@ -92,13 +92,13 @@ For registering steps, you can use this method which accepts two argument as fol
 | label         | Label of this field  | no       |
 
 
-#### example :
+#### Example:
 ```
 $wizard->step("content", [
     'title'         => 'Send SMS!',
     'slug'          => 'content',
     'label'         => 'Content',
-    'next'          =>  'reciever',
+    'next'          =>  'receiver',
     'description'   => 'An optional short description goes here.',
     'fields'        => [
         [
@@ -120,7 +120,7 @@ $wizard->step("content", [
 
 ### Register() method
 
-After passing rquired data to the above methods, add this code the main page of your plugin: 
+After passing required data to the above methods, add this code to the main page of your plugin: 
 
 
 ```
