@@ -25,6 +25,10 @@
     color: #B2B2B2!important;
     cursor: default;
     border-color:transparent;
+    &:hover{
+      background: $grey-color-4!important;
+      color: #B2B2B2!important;
+    }
   }
 }
 .c-btn--primary {

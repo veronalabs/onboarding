@@ -3,7 +3,11 @@
   'use strict';
   document.addEventListener('DOMContentLoaded', function() {
     // Your custom JavaScript goes here
-    $("select").select2();
+
+      $('.wpsms-onboarding select').select2().on('select2:open', function(e){
+          $('.select2-search__field').attr('placeholder', 'Type to search...');
+      })
+
     const table =  $(".js-table").DataTable({
       searching: true,
       info: false,
@@ -21,10 +25,12 @@
     const gatewayRows = document.querySelectorAll('.js-table-gateway tbody tr:not(.disabled)');
     if(gatewayRows){
         gatewayRows.forEach(row => {
-            row.addEventListener('click', function() {
+            row.addEventListener('click', function(event) {
+                event.stopPropagation();
                 const radio = row.querySelector('input[type="radio"]');
                 if (radio) {
                     radio.checked = true;
+                    radio.dispatchEvent(new Event('change'));
                 }
             });
         });
@@ -46,7 +52,7 @@
       });
 
     // handle step 2
-    const radioButtons = document.querySelectorAll('td input[type="radio"]');
+    const radioButtons = document.querySelectorAll('.js-table-gateway td input[type="radio"]');
     radioButtons.forEach(radio => {
       radio.addEventListener('change', function() {
         // Reset all rows

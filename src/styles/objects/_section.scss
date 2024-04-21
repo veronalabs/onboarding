@@ -28,9 +28,19 @@
     padding:38px 38px 15px;
   }
 }
-.wpsms-onboarding .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{
-  background: $primary-orange;
-}
-.wpsms-onboarding *:focus-visible {
-  outline: none!important;
+.wpsms-onboarding{
+  .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{
+  background: #F7F7F7!important;
+  color:#282828 ;
+  }
+  *:focus-visible {
+    outline: none!important;
+  }
+  .select2-dropdown{
+    border-color: #E7E7E7;
+  }
+  .select2-search__field{
+    font-size: 14px;
+    border: none!important;
+  }
 }

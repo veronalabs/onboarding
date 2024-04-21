@@ -112,6 +112,7 @@ exports.styles = styles;
 function scripts() {
   return (
     src([
+      "./node_modules/jquery/dist/jquery.min.js",
       "./node_modules/select2/dist/js/select2.min.js",
       "./node_modules/datatables/media/js/jquery.dataTables.js",
       "./node_modules/tooltip-plugin/dist/tooltip.min.js",
