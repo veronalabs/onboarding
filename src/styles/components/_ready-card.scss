@@ -46,9 +46,24 @@
   display: inline-block;
   text-decoration: none;
 }
-a.c-readycard__title:hover{
-  color:$primary-orange
+a.c-readycard__title{
+  &:after{
+    content: "";
+    width: 5.83px;
+    display: inline-block;
+    height: 9.55px;
+    margin-left: 4px;
+    filter: grayscale(1) contrast(2.5);
+    background: url(data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjYiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCA2IDEwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMy44Nzg4NCA1LjAwMDUyTDAuMTY2NTA0IDEuMjg4MkwxLjIyNzE3IDAuMjI3NTM5TDYuMDAwMTQgNS4wMDA1MkwxLjIyNzE3IDkuNzczNDVMMC4xNjY1MDQgOC43MTI4TDMuODc4ODQgNS4wMDA1MloiIGZpbGw9IiNDMjQyMjUiLz4KPC9zdmc+Cg==) 50% no-repeat;
+  }
+  &:hover{
+    color:$primary-orange;
+    &:after{
+      filter: none;
+    }
+  }
 }
+
 .c-readycard__desc {
   margin: 0 0 16px 0;
   min-height: 37px;

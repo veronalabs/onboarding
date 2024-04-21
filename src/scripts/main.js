@@ -1,76 +1,86 @@
 /* eslint-env browser */
-(function() {
-  'use strict';
-  document.addEventListener('DOMContentLoaded', function() {
-    // Your custom JavaScript goes here
+(function () {
+    'use strict';
+    document.addEventListener('DOMContentLoaded', function () {
+        // Your custom JavaScript goes here
 
-      $('.wpsms-onboarding select').select2().on('select2:open', function(e){
-          $('.select2-search__field').attr('placeholder', 'Type to search...');
-      })
 
-    const table =  $(".js-table").DataTable({
-      searching: true,
-      info: false,
-      order: [],
-      responsive: true,
-      language: {
-        paginate: {
-          previous:
-            '<span class="prev-icon paginate_button"><svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="none"><path fill="#5B5B5B" d="M3.948 6.328a.175.175 0 0 1 0 .248l-.37.371a.168.168 0 0 1-.246 0L.116 3.731a.262.262 0 0 1-.077-.186v-.09c0-.07.028-.137.077-.186L3.332.053a.168.168 0 0 1 .245 0l.371.371a.175.175 0 0 1 0 .248L1.121 3.5l2.827 2.828Z"/></svg></span>',
-          next: '<span class="next-icon paginate_button"><svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="none"><path fill="#5B5B5B" d="M.052.672a.175.175 0 0 1 0-.248l.37-.371a.168.168 0 0 1 .246 0l3.216 3.216c.049.05.077.116.077.186v.09c0 .07-.028.137-.077.186L.668 6.947a.168.168 0 0 1-.245 0l-.371-.371a.175.175 0 0 1 0-.248L2.879 3.5.052.672Z"/></svg></span>',
-        },
-      },
-    });
+        $('.wpsms-onboarding select').select2().on('select2:open', function (e) {
+            $('.select2-search__field').attr('placeholder', 'Type to search...');
+        })
 
-    const gatewayRows = document.querySelectorAll('.js-table-gateway tbody tr:not(.disabled)');
-    if(gatewayRows){
-        gatewayRows.forEach(row => {
-            row.addEventListener('click', function(event) {
-                event.stopPropagation();
-                const radio = row.querySelector('input[type="radio"]');
-                if (radio) {
-                    radio.checked = true;
-                    radio.dispatchEvent(new Event('change'));
-                }
+        if ($(".select2-container").length > 0) {
+            $(".wpsms-skeleton__select").css('display', 'none');
+            $(".select2-container").css('display', 'block');
+        }
+
+        const table = $(".js-table").DataTable({
+            searching: true,
+            info: false,
+            order: [],
+            responsive: true,
+            language: {
+                paginate: {
+                    previous:
+                        '<span class="prev-icon paginate_button"><svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="none"><path fill="#5B5B5B" d="M3.948 6.328a.175.175 0 0 1 0 .248l-.37.371a.168.168 0 0 1-.246 0L.116 3.731a.262.262 0 0 1-.077-.186v-.09c0-.07.028-.137.077-.186L3.332.053a.168.168 0 0 1 .245 0l.371.371a.175.175 0 0 1 0 .248L1.121 3.5l2.827 2.828Z"/></svg></span>',
+                    next: '<span class="next-icon paginate_button"><svg xmlns="http://www.w3.org/2000/svg" width="4" height="7" fill="none"><path fill="#5B5B5B" d="M.052.672a.175.175 0 0 1 0-.248l.37-.371a.168.168 0 0 1 .246 0l3.216 3.216c.049.05.077.116.077.186v.09c0 .07-.028.137-.077.186L.668 6.947a.168.168 0 0 1-.245 0l-.371-.371a.175.175 0 0 1 0-.248L2.879 3.5.052.672Z"/></svg></span>',
+                },
+            },
+            "initComplete": function () {
+                $(".wpsms-skeleton__table").css('display', 'none');
+                $(".js-table-gateway").css('display', 'table');
+            }
+        });
+
+        const gatewayRows = document.querySelectorAll('.js-table-gateway tbody tr:not(.disabled)');
+        if (gatewayRows) {
+            gatewayRows.forEach(row => {
+                row.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    const radio = row.querySelector('input[type="radio"]');
+                    if (radio) {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+        }
+
+        const searchInput = document.querySelector('#searchGateway');
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function () {
+                table.search(this.value).draw();
+            });
+        }
+        // steps
+        const steps = document.querySelectorAll('.s-nav--steps li');
+        steps.forEach(step => {
+            step.addEventListener('click', function () {
+                const href = step.lastChild.getAttribute('href');
+                if (href) window.location.href = href
             });
         });
-    }
 
-    const searchInput  = document.querySelector('#searchGateway');
-    if(searchInput){
-        searchInput.addEventListener('keyup', function() {
-            table.search(this.value).draw();
-        });
-    }
-    // steps
-      const steps = document.querySelectorAll('.s-nav--steps li');
-      steps.forEach(step => {
-          step.addEventListener('click', function() {
-             const href= step.lastChild.getAttribute('href');
-             if(href) window.location.href=href
-          });
-      });
+        // handle step 2
+        const radioButtons = document.querySelectorAll('.js-table-gateway td input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function () {
+                // Reset all rows
+                const rows = document.querySelectorAll('.c-table.js-table tbody tr');
+                rows.forEach(row => {
+                    row.classList.remove('selected-row');
+                });
 
-    // handle step 2
-    const radioButtons = document.querySelectorAll('.js-table-gateway td input[type="radio"]');
-    radioButtons.forEach(radio => {
-      radio.addEventListener('change', function() {
-        // Reset all rows
-        const rows = document.querySelectorAll('.c-table.js-table tbody tr');
-        rows.forEach(row => {
-          row.classList.remove('selected-row');
+                // Set background color for the selected row
+                const selectedRow = this.closest('tr');
+                selectedRow.classList.add('selected-row');
+
+                // Update button text and enable it
+                const button = document.querySelector('.c-form__footer input[type="submit"]');
+                button.value = 'Continue';
+                button.removeAttribute('disabled');
+            });
         });
 
-        // Set background color for the selected row
-        const selectedRow = this.closest('tr');
-        selectedRow.classList.add('selected-row');
-
-        // Update button text and enable it
-        const button = document.querySelector('.c-form__footer input[type="submit"]');
-        button.value = 'Continue';
-        button.removeAttribute('disabled');
-      });
     });
-
-  });
 })();
