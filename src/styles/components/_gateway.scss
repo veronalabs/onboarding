@@ -23,6 +23,9 @@
     @include mq(lg) {
       display: inline;
     }
+    &:hover{
+      opacity: 70% !important;
+    }
   }
 
 }

@@ -2,6 +2,11 @@
   border-radius: 4px;
   border: 1px solid $grey-color-3 !important;
   margin-bottom:0 !important;
+  &-gateway{
+    tr:not(.disabled ){
+      cursor: pointer;
+    }
+  }
   thead {
     background: $grey-color-4;
     border: 0;

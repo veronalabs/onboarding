@@ -37,6 +37,7 @@
     width: 16.6%;
     position: relative;
     box-sizing: border-box;
+    cursor: pointer;
     @media (max-width: 790px) {
       width: 14.28%;
     }
@@ -88,7 +89,6 @@
       justify-content: center;
       position: relative;
       z-index: 2;
-      cursor: pointer;
     }
 
     a {

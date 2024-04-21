@@ -18,6 +18,18 @@
       },
     });
 
+    const gatewayRows = document.querySelectorAll('.js-table-gateway tbody tr:not(.disabled)');
+    if(gatewayRows){
+        gatewayRows.forEach(row => {
+            row.addEventListener('click', function() {
+                const radio = row.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                }
+            });
+        });
+    }
+
     const searchInput  = document.querySelector('#searchGateway');
     if(searchInput){
         searchInput.addEventListener('keyup', function() {
@@ -25,10 +37,10 @@
         });
     }
     // steps
-      const steps = document.querySelectorAll('.s-nav--steps li span');
+      const steps = document.querySelectorAll('.s-nav--steps li');
       steps.forEach(step => {
           step.addEventListener('click', function() {
-             const href= step.nextElementSibling.getAttribute('href');
+             const href= step.lastChild.getAttribute('href');
              if(href) window.location.href=href
           });
       });

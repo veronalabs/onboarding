@@ -28,3 +28,9 @@
     padding:38px 38px 15px;
   }
 }
+.wpsms-onboarding .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{
+  background: $primary-orange;
+}
+.wpsms-onboarding *:focus-visible {
+  outline: none!important;
+}

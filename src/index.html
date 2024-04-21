@@ -56,7 +56,7 @@
 
 </head>
 
-<body>
+<body class="wpsms-onboarding">
 <div id="main" role="content">
 
     <section class="c-section--logo u-text-center">
@@ -91,7 +91,13 @@
                 <form action="/step2-sms-gateway.html">
                     <p class="c-form__title">Get Notifications Where You Need Them</p>
                     <div class="c-form__fieldgroup u-mb-32">
-                        <label for="countries">Country Code <span class="u-text-red">*</span></label>
+                        <label for="countries">
+                            Country Code
+                            <span data-tooltip="tooltip data" data-tooltip-font-size="12px">
+                                  <i class="wps-tooltip-icon"></i>
+                            </span>
+                            <span class="u-text-red">*</span>
+                        </label>
                         <select id="countries" name="countries">
                             <option value="Global">No country code (Global)</option>
                             <option value="Albania">Albania</option>
