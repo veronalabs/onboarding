@@ -2,7 +2,7 @@
 
 use Veronalabs\Onboarding\Wizard;
 
-require_once dirname(__DIR__, '1') . "/src/Wizard.php";
+require_once '../vendor/autoload.php';
 
 $wizard = Wizard::getInstance();
 
@@ -19,7 +19,7 @@ $wizard->config([
     ],
     "logo"          =>  "",
     "admin_icon"    =>  "dashicons-info",
-    "css_url"       =>  "",
+    "css_url"       =>  "assets/css/onboarding.css",
 ]);
 
 $wizard->step("content", [
@@ -33,7 +33,7 @@ $wizard->step("content", [
             'type'          => 'text',
             'option_name'   => 'admin_mobile_number',
             'label'         => 'Admin Number',
-            'default'       => 'write your SMS‌ message here',
+            'default'       => 'write your SMS message here',
             'required'      =>  true
         ],
     ]

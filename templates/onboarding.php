@@ -5,9 +5,9 @@ use Veronalabs\Onboarding\Wizard;
 ?>
 <div class="onboarding-wrap">
     <?php if (isset($config['css_url']) &&  $config['css_url'] != "") {
-        echo '<link href="' . $config['css_url'] . '" rel="stylesheet" />';
+        echo '<link href="' . esc_url($config['css_url']) . '" rel="stylesheet" />';
         } else {
-            echo '<link href="' . plugin_dir_url(__FILE__) . '/assets/main.min.css" rel="stylesheet" />';
+            echo '<link href="' . plugin_dir_url(__FILE__) . '/../assets/onboarding.min.css" rel="stylesheet" />';
         }
     ?>
     <body class="wpsms-onboarding">
@@ -37,7 +37,7 @@ use Veronalabs\Onboarding\Wizard;
                                 <?php
                                 $active = 'is-active';
                                 foreach (Wizard::getSteps() as $step) {
-                                    echo '<li class="' . $active . '"><span></span><a href="' . Wizard::stepLink($step['slug']) . '" title="' . $step['label'] . '">' . $step['label'] . '</a></li>';
+                                    echo '<li class="' . esc_attr($active) . '"><span></span><a href="' . esc_url(Wizard::stepLink($step['slug'])) . '" title="' . esc_attr($step['label']) . '">' . $step['label'] . '</a></li>';
                                     if ($currentStep['slug'] == $step['slug']) {
                                         $active = "";
                                     }
@@ -83,15 +83,15 @@ use Veronalabs\Onboarding\Wizard;
             <section class="c-section--nextstep u-text-center ">
                 <div class="u-flex u-content-center">
                     <?php
-                    echo    Wizard::renderPrevBtn();
-                    echo    Wizard::renderExitBtn();
-                    echo    Wizard::renderNextBtn();
+                    echo Wizard::renderPrevBtn();
+                    echo Wizard::renderExitBtn();
+                    echo Wizard::renderNextBtn();
                     ?>
                 </div>
             </section>
         </div>
         <?php if (isset($config['js_url']) &&  $config['js_url'] != "") {
-                echo '<script src="' . $config['js_url'] . '"></script>';
+                echo '<script src="' . esc_url($config['js_url']) . '"></script>';
             } else {
                 echo '<script src="' . plugin_dir_url(__FILE__) . '/assets/main.min.js"></script>';
             }

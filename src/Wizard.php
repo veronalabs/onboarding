@@ -77,7 +77,7 @@ class Wizard
             if (isset($this->config['template_path'])) {
                 echo self::loadTemplate($this->config['template_path'], ["currentStep" => $this->currentStep, "config" => $this->config]);
             } else {
-                echo self::loadTemplate(dirname(__FILE__, 1) . '/templates/onboarding.php', ["currentStep" => $this->currentStep, "config" => $this->config]);
+                echo self::loadTemplate(dirname(__FILE__, 1) . '/../templates/onboarding.php', ["currentStep" => $this->currentStep, "config" => $this->config]);
             }
         } 
 
@@ -176,7 +176,7 @@ class Wizard
         global $pagenow;
 
         if (get_option("wizard_{$this->config['slug']}_just_started") && $pagenow == 'plugins.php' && $this->data == []) {
-            exit(wp_redirect($this->startWizardURI()));
+            exit(wp_redirect($this->startWizardUrl()));
         }
     }
 
@@ -285,7 +285,7 @@ class Wizard
             $default    = $field['default'] ? $field['default'] : '';
             $isRequired = $field['required'] == true ? 'required' : '';
             return "<label> " . $label . " </label>
-            <input type='text' class='w-auto' name='{$field['option_name']}' placeholder='{$field['label']}' value='$default' $isRequired />";
+            <input type='text' class='w-auto' name='{$field['option_name']}' placeholder='{$field['label']}' value='$default' $isRequired />"; // todo escape
         }
     }
 
@@ -307,7 +307,7 @@ class Wizard
         return sanitize_text_field($data);
     }
 
-    public static function startWizardURI($slug = null)
+    public static function startWizardUrl($slug = null)
     {
         $url = admin_url('admin.php');
         $url = add_query_arg(['page' => $slug ? $slug : self::$instance->config['slug']], $url);
@@ -350,7 +350,7 @@ class Wizard
         if (isset(self::$instance->currentStep['prev'])) {
             return "<form method='post' action='" . add_query_arg("skip", "prev") . "'>
                 " . wp_nonce_field() . "
-                <button class='wizard-btn' name='skip' value='prev'  type='submit'>Prev</button>
+                <button class='wizard-btn' name='skip' value='prev' type='submit'>Prev</button>
             </form>";
         }
     }
@@ -359,7 +359,7 @@ class Wizard
     {
         return  "<form method='post' action=''>
             " . wp_nonce_field() . "
-            <button class='wizard-btn exit-btn' name='exit' value='true'  type='submit'>Exit</button>
+            <button class='wizard-btn exit-btn' name='exit' value='true' type='submit'>Exit</button>
         </form>";
     }
 
