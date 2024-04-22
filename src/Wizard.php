@@ -51,20 +51,26 @@ class Wizard
         $this->setPrevStep();
 
         add_action('admin_menu', [self::$instance, 'registerAdminPage']);
-        add_action( 'admin_head', function() {
-            remove_submenu_page( 'index.php', $this->config['slug'] );
+        add_action('admin_head', function () {
+            remove_submenu_page('index.php', $this->config['slug']);
         });
     }
 
     public function callbackHandler()
     {
         if ($_POST && wp_verify_nonce($_POST['_wpnonce'])) {
-            $this->data['current_step'] = $this->currentStep['slug'];
-            $this->saveCurrentStep(self::sanitizeMaybeArray($_POST));
-
-            if (!$this->nextStep) {
+            if(isset($_GET['step']) && sanitize_text_field($_GET['step']) != "")
+            {
+                $this->data['current_step'] = $this->currentStep['slug'];
+                $this->saveCurrentStep(self::sanitizeMaybeArray($_POST));
+                
+            } 
+            else {
                 $this->data['status'] = "COMPLETED";
+                $this->saveData();
+                self::redirect();
             }
+
         }
 
         if ($this->currentStep) {
@@ -73,7 +79,7 @@ class Wizard
             } else {
                 echo self::loadTemplate(dirname(__FILE__, 1) . '/templates/onboarding.php', ["currentStep" => $this->currentStep, "config" => $this->config]);
             }
-        }
+        } 
 
         if (get_option("wizard_{$this->config['slug']}_just_started")) {
             delete_option("wizard_{$this->config['slug']}_just_started");
@@ -190,6 +196,11 @@ class Wizard
         }
     }
 
+    public static function getSteps()
+    {
+        return self::$instance->steps;
+    }
+
     private function saveData()
     {
         if ($this->data) {
@@ -270,9 +281,11 @@ class Wizard
         }
 
         if ($field['type'] == 'text') {
+            $label = isset($field['label']) ? $field['label'] : "";
             $default    = $field['default'] ? $field['default'] : '';
             $isRequired = $field['required'] == true ? 'required' : '';
-            echo "<input type='text' name='{$field['option_name']}' placeholder='{$field['label']}' value='$default' $isRequired />";
+            return "<label> " . $label . " </label>
+            <input type='text' class='w-auto' name='{$field['option_name']}' placeholder='{$field['label']}' value='$default' $isRequired />";
         }
     }
 
@@ -304,7 +317,7 @@ class Wizard
 
     public static function startWizard($name = "veronalabs_onboarding")
     {
-        update_option("wizard_".self::$instance->config['slug']."_just_started", true);
+        update_option("wizard_" . self::$instance->config['slug'] . "_just_started", true);
     }
 
     private function redirect($url = null)
@@ -313,36 +326,45 @@ class Wizard
             exit(wp_redirect(wp_sanitize_redirect($url)));
         }
 
-        if (isset($this->config['redirect_url'])) {
-            exit(wp_redirect(wp_sanitize_redirect($this->config['redirect_url'])));
-        }
+        $url = isset($this->config['redirect_url']) ? $this->config['redirect_url'] : admin_url();
+        exit(wp_redirect(wp_sanitize_redirect($url)));
+    }
+
+    public static function formAction()
+    {
+        return add_query_arg("step", isset(self::$instance->currentStep['next']) ?  self::$instance->currentStep['next'] : "");
     }
 
     public static function renderNextBtn()
     {
-        if(isset(self::$instance->currentStep['next'])) {
-            echo "<form action='' method='post'>
-                ".wp_nonce_field()."
-                <button name='skip' value='next' type='submit'>Next</button>
+        if (isset(self::$instance->currentStep['next'])) {
+            return "<form action='' method='post'>
+                " . wp_nonce_field() . "
+                <button class='wizard-btn' name='skip' value='next' type='submit'>Next</button>
             </form>";
         }
-    } 
+    }
 
     public static function renderPrevBtn()
     {
-        if(isset(self::$instance->currentStep['prev'])) {
-            echo "<form method='post' action='".add_query_arg("skip", "prev")."'>
-                ".wp_nonce_field()."
-                <button  name='skip' value='prev'  type='submit'>Prev</button>
+        if (isset(self::$instance->currentStep['prev'])) {
+            return "<form method='post' action='" . add_query_arg("skip", "prev") . "'>
+                " . wp_nonce_field() . "
+                <button class='wizard-btn' name='skip' value='prev'  type='submit'>Prev</button>
             </form>";
         }
-    } 
+    }
 
     public static function renderExitBtn()
     {
-        echo "<form method='post' action=''>
-            ".wp_nonce_field()."
-            <button  name='exit' value='true'  type='submit'>Exit</button>
+        return  "<form method='post' action=''>
+            " . wp_nonce_field() . "
+            <button class='wizard-btn exit-btn' name='exit' value='true'  type='submit'>Exit</button>
         </form>";
-    } 
+    }
+
+    public static function stepLink($slug)
+    {
+        return add_query_arg('step', $slug);
+    }
 }
