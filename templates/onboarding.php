@@ -7,7 +7,7 @@ use Veronalabs\Onboarding\Wizard;
     <?php if (isset($config['css_url']) &&  $config['css_url'] != "") {
         echo '<link href="' . esc_url($config['css_url']) . '" rel="stylesheet" />';
         } else {
-            echo '<link href="' . plugin_dir_url(__FILE__) . '/../assets/onboarding.min.css" rel="stylesheet" />';
+            echo '<link href="' . plugin_dir_url(__DIR__) . '/assets/onboarding.min.css" rel="stylesheet" />';
         }
     ?>
     <body class="wpsms-onboarding">
@@ -93,7 +93,7 @@ use Veronalabs\Onboarding\Wizard;
         <?php if (isset($config['js_url']) &&  $config['js_url'] != "") {
                 echo '<script src="' . esc_url($config['js_url']) . '"></script>';
             } else {
-                echo '<script src="' . plugin_dir_url(__FILE__) . '/assets/main.min.js"></script>';
+                echo '<script src="' . plugin_dir_url(__DIR__) . '/assets/main.min.js"></script>';
             }
         ?>
     </body>
