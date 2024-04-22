@@ -4,10 +4,12 @@ use Veronalabs\Onboarding\Wizard;
 
 ?>
 <div class="onboarding-wrap">
-    <!-- build:css styles/main.min.css -->
-    <link href="https://wpsms-onboarding.surge.sh/styles/main.min.css" rel="stylesheet" />
-    <!-- endbuild -->
-
+    <?php if (isset($config['css_url']) &&  $config['css_url'] != "") {
+        echo '<link href="' . $config['css_url'] . '" rel="stylesheet" />';
+        } else {
+            echo '<link href="' . plugin_dir_url(__FILE__) . '/assets/main.min.css" rel="stylesheet" />';
+        }
+    ?>
     <body class="wpsms-onboarding">
         <div id="main" role="content">
 
@@ -88,7 +90,12 @@ use Veronalabs\Onboarding\Wizard;
                 </div>
             </section>
         </div>
-        <script src="https://wpsms-onboarding.surge.sh/scripts/main.min.js"></script>
+        <?php if (isset($config['js_url']) &&  $config['js_url'] != "") {
+                echo '<script src="' . $config['js_url'] . '"></script>';
+            } else {
+                echo '<script src="' . plugin_dir_url(__FILE__) . '/assets/main.min.js"></script>';
+            }
+        ?>
     </body>
 </div>
 
