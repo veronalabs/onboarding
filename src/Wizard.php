@@ -51,6 +51,9 @@ class Wizard
         $this->setPrevStep();
 
         add_action('admin_menu', [self::$instance, 'registerAdminPage']);
+        add_action( 'admin_head', function() {
+            remove_submenu_page( 'index.php', $this->config['slug'] );
+        });
     }
 
     public function callbackHandler()
@@ -72,9 +75,8 @@ class Wizard
             }
         }
 
-        // @todo, wizard_just_started should be wizard_{slug}_just_started
-        if (get_option('wizard_just_started')) {
-            delete_option('wizard_just_started');
+        if (get_option("wizard_{$this->config['slug']}_just_started")) {
+            delete_option("wizard_{$this->config['slug']}_just_started");
         }
 
         $this->saveData();
@@ -83,29 +85,15 @@ class Wizard
     public function registerAdminPage()
     {
         if ($this->config == []) return;
-        if (isset($this->config['parent']) && $this->config['parent']) {
-            add_submenu_page(
-                $this->config['parent'],
-                __($this->config['title'], 'veronalabs-onboarding'),
-                __($this->config['title'], 'veronalabs-onboarding'),
-                (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
-                $this->config['slug'],
-                function () {
-                    $this->adminCallback();
-                }
-            );
-        } else {
-            add_menu_page(
-                __($this->config['title'], 'veronalabs-onboarding'),
-                __($this->config['title'], 'veronalabs-onboarding'),
-                (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
-                $this->config['slug'],
-                function () {
-                    $this->adminCallback();
-                },
-                isset($this->config['admin_icon']) ? $this->config['admin_icon'] : "dashicons-info"
-            );
-        }
+        add_dashboard_page(
+            __($this->config['title'], 'veronalabs-onboarding'),
+            __($this->config["title"], 'veronalabs-onboarding'),
+            (isset($this->config['capability']) && $this->config['capability'] == '') ? $this->config['capability'] : 'manage_options',
+            $this->config['slug'],
+            function () {
+                $this->adminCallback();
+            }
+        );
     }
 
     private function adminCallback()
@@ -150,8 +138,8 @@ class Wizard
     public function maybeSkippedStep()
     {
         global $pagenow;
-        if ($pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug'] && isset($_GET['skip'])) {
-            $skip     = sanitize_text_field($_GET['skip']);
+        if (isset($_POST['skip']) &&  wp_verify_nonce($_POST['_wpnonce']) && $pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug']) {
+            $skip     = sanitize_text_field($_POST['skip']);
             $location = remove_query_arg('skip');
             if ($skip == "next") {
                 $this->data['current_step'] = $this->nextStep['slug'];
@@ -170,7 +158,7 @@ class Wizard
     public function maybeExitedWizard()
     {
         global $pagenow;
-        if ($pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug'] && isset($_GET['exit'])) {
+        if (isset($_POST['exit']) &&  wp_verify_nonce($_POST['_wpnonce']) && $pagenow == "admin.php" && isset($_GET['page']) && sanitize_text_field($_GET['page']) == $this->config['slug']) {
             $this->data['status'] = "EXITED";
             $this->saveData();
             $this->redirect();
@@ -181,7 +169,7 @@ class Wizard
     {
         global $pagenow;
 
-        if (get_option('wizard_just_started') && $pagenow == 'plugins.php' && $this->data == []) {
+        if (get_option("wizard_{$this->config['slug']}_just_started") && $pagenow == 'plugins.php' && $this->data == []) {
             exit(wp_redirect($this->startWizardURI()));
         }
     }
@@ -314,9 +302,9 @@ class Wizard
         return $url;
     }
 
-    public static function startWizard()
+    public static function startWizard($name = "veronalabs_onboarding")
     {
-        update_option('wizard_just_started', true);
+        update_option("wizard_".self::$instance->config['slug']."_just_started", true);
     }
 
     private function redirect($url = null)
@@ -329,4 +317,32 @@ class Wizard
             exit(wp_redirect(wp_sanitize_redirect($this->config['redirect_url'])));
         }
     }
+
+    public static function renderNextBtn()
+    {
+        if(isset(self::$instance->currentStep['next'])) {
+            echo "<form action='' method='post'>
+                ".wp_nonce_field()."
+                <button name='skip' value='next' type='submit'>Next</button>
+            </form>";
+        }
+    } 
+
+    public static function renderPrevBtn()
+    {
+        if(isset(self::$instance->currentStep['prev'])) {
+            echo "<form method='post' action='".add_query_arg("skip", "prev")."'>
+                ".wp_nonce_field()."
+                <button  name='skip' value='prev'  type='submit'>Prev</button>
+            </form>";
+        }
+    } 
+
+    public static function renderExitBtn()
+    {
+        echo "<form method='post' action=''>
+            ".wp_nonce_field()."
+            <button  name='exit' value='true'  type='submit'>Exit</button>
+        </form>";
+    } 
 }
