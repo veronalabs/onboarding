@@ -7,11 +7,14 @@
 
         $('.wpsms-onboarding select').select2().on('select2:open', function (e) {
             $('.select2-search__field').attr('placeholder', 'Type to search...');
+            $(".wpsms-onboarding select").css('display', 'inline-block');
+            $(".wpsms-onboarding .select2-container").css('display', 'inline-block');
         })
 
         if ($(".select2-container").length > 0) {
             $(".wpsms-skeleton__select").css('display', 'none');
-            $(".select2-container").css('display', 'block');
+            $(".wpsms-onboarding select").css('display', 'inline-block');
+            $(".wpsms-onboarding .select2-container").css('display', 'inline-block');
         }
 
         const table = $(".js-table").DataTable({
