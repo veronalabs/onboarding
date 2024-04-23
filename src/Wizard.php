@@ -41,6 +41,7 @@ class Wizard
 
     public function register()
     {
+        global $pagenow;
         $this->data = $this->getData();
         if (isset($this->data['status']) && in_array($this->data['status'], array('COMPLETED', 'EXITED'))) {
             return;
@@ -54,23 +55,23 @@ class Wizard
         add_action('admin_head', function () {
             remove_submenu_page('index.php', $this->config['slug']);
         });
+
+        if ($pagenow == "admin.php" && isset($_GET['page']) && $_GET['page'] == $this->config['slug']) {
+            add_action('admin_head', [self::$instance, 'onboardingModaljs']);
+        }
     }
 
     public function callbackHandler()
     {
         if ($_POST && wp_verify_nonce($_POST['_wpnonce'])) {
-            if(isset($_GET['step']) && sanitize_text_field($_GET['step']) != "")
-            {
+            if (isset($_GET['step']) && sanitize_text_field($_GET['step']) != "") {
                 $this->data['current_step'] = $this->currentStep['slug'];
                 $this->saveCurrentStep(self::sanitizeMaybeArray($_POST));
-                
-            } 
-            else {
+            } else {
                 $this->data['status'] = "COMPLETED";
                 $this->saveData();
                 self::redirect();
             }
-
         }
 
         if ($this->currentStep) {
@@ -79,7 +80,7 @@ class Wizard
             } else {
                 echo self::loadTemplate(dirname(__FILE__, 1) . '/../templates/onboarding.php', ["currentStep" => $this->currentStep, "config" => $this->config]);
             }
-        } 
+        }
 
         if (get_option("wizard_{$this->config['slug']}_just_started")) {
             delete_option("wizard_{$this->config['slug']}_just_started");
@@ -367,4 +368,31 @@ class Wizard
     {
         return add_query_arg('step', $slug);
     }
+
+
+    public static function onboardingModaljs()
+    {
+        $id = "onboarding-outer-" . self::$instance->config['slug'];
+    ?>
+        <div id="<?php echo  $id; ?>" style="
+            width: 100%;
+            min-height: 100%;
+            position: fixed;
+            z-index: 999998;
+            left: 0px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #ddd;
+            margin: 0;
+            overflow: auto;
+        "></div>
+        <script type="text/javascript">
+            let outer = document.getElementById(<?php echo  $id; ?>);
+            console.log(outer);
+        </script>
+
+    <?php
+    }
+
 }

@@ -3,7 +3,7 @@
 use Veronalabs\Onboarding\Wizard;
 
 ?>
-<div class="onboarding-wrap">
+<div id="onboarding-wrap">
     <?php if (isset($config['css_url']) &&  $config['css_url'] != "") {
         echo '<link href="' . esc_url($config['css_url']) . '" rel="stylesheet" />';
         } else {
@@ -100,11 +100,11 @@ use Veronalabs\Onboarding\Wizard;
 </div>
 
 <style>
-    .onboarding-wrap {
+    #onboarding-wrap {
         width: 100%;
         min-height: 100%;
         position: fixed;
-        z-index: 99999;
+        z-index: 999999;
         left: 0px;
         top: 0;
         right: 0;
