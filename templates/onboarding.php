@@ -1,7 +1,6 @@
 <?php
-
-use Veronalabs\Onboarding\Wizard;
-
+$currentStep = $wizard->currentStep;
+$config = $wizard->config;
 ?>
 <div id="onboarding-wrap">
     <?php if (isset($config['css_url']) &&  $config['css_url'] != "") {
@@ -36,8 +35,8 @@ use Veronalabs\Onboarding\Wizard;
                             <ul class="s-nav s-nav--steps">
                                 <?php
                                 $active = 'is-active';
-                                foreach (Wizard::getSteps() as $step) {
-                                    echo '<li class="' . esc_attr($active) . '"><span></span><a href="' . esc_url(Wizard::stepLink($step['slug'])) . '" title="' . esc_attr($step['label']) . '">' . $step['label'] . '</a></li>';
+                                foreach ($wizard->getSteps() as $step) {
+                                    echo '<li class="' . esc_attr($active) . '"><span></span><a href="' . esc_url($wizard::stepLink($step['slug'])) . '" title="' . esc_attr($step['label']) . '">' . $step['label'] . '</a></li>';
                                     if ($currentStep['slug'] == $step['slug']) {
                                         $active = "";
                                     }
@@ -55,7 +54,7 @@ use Veronalabs\Onboarding\Wizard;
                         <p class="u-m-0"><?php echo isset($currentStep['description']) ? esc_attr($currentStep['description']) : ''; ?></p>
                     </div>
                     <div class="c-form c-form--medium u-flex u-content-center">
-                        <form method="post" action="<?php echo Wizard::formAction(); ?>">
+                        <form method="post" action="<?php echo $wizard->formAction(); ?>">
                             <div>
                                 <?php
                                 wp_nonce_field();
@@ -63,11 +62,11 @@ use Veronalabs\Onboarding\Wizard;
                                     if ($field['type'] == 'text') {
                                         $fieldDesc = isset($field['description']) ? esc_attr($field['description']) : '';
                                         echo '<div class="c-form__fieldgroup u-mb-20 u-mt-20">
-                                            ' . Wizard::renderField($field) . '    
+                                            ' . $wizard->renderField($field) . '    
                                             <p class="c-form__description"> ' . $fieldDesc . ' </p>
                                             </div>';
                                     } else {
-                                        Wizard::renderField($field);
+                                        $wizard->renderField($field);
                                     }
                                 }
                                 ?>
@@ -83,9 +82,9 @@ use Veronalabs\Onboarding\Wizard;
             <section class="c-section--nextstep u-text-center ">
                 <div class="u-flex u-content-center">
                     <?php
-                    echo Wizard::renderPrevBtn();
-                    echo Wizard::renderExitBtn();
-                    echo Wizard::renderNextBtn();
+                    echo $wizard->renderPrevBtn();
+                    echo $wizard->renderExitBtn();
+                    echo $wizard->renderNextBtn();
                     ?>
                 </div>
             </section>
